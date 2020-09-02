@@ -45,7 +45,7 @@ python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pt
 ```
 
 ## Evaluation
-See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval)
+See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 
 ## Benchmark and model zoo
 - [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
