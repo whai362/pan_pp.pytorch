@@ -20,15 +20,17 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 87.9 | 79.6 | 83.5 | |
-| PAN (paper) | ResNet18 | N | 88.0 | 79.4 | 83.5 | |
+| PAN (paper) | ResNet18 | N | 88.0 | 79.4 | 83.5 | - |
 | PAN | ResNet18 | Y | 88.5 | 81.7 | 85.0 | |
-| PAN (paper) | ResNet18 | Y | 89.3 | 81.0 | 85.0 | |
+| PAN (paper) | ResNet18 | Y | 89.3 | 81.0 | 85.0 | - |
 
 [CTW1500](https://github.com/Yuliang-Liu/Curve-Text-Detector)
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 85.1 | 79.1 | 82.0 | |
+| PAN (paper) | ResNet18 | N | 84.6 | 77.7 | 81.0 | - |
 | PAN | ResNet18 | Y | 86.0 | 81.0 | 83.4 | |
+| PAN (paper) | ResNet18 | Y | 86.4 | 81.2 | 83.7 | - |
 
 [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
