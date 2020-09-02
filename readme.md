@@ -26,7 +26,7 @@ pip install -r requirement.txt
 ./compile.sh
 ```
 
-## Train
+## Training
 ```shell script
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py ${CONFIG_FILE}
 ```
@@ -43,6 +43,9 @@ For example:
 ```shell script
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar
 ```
+
+## Evaluation
+See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval)
 
 ## Benchmark and model zoo
 - [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
