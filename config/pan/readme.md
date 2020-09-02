@@ -11,7 +11,7 @@
 ```
 
 Note that, the original PAN is based on Python 2.7 and Pytorch 0.4.1.
-When migrating it to Python 3.6 and Pytorch 1.1.0, there are following two changes to the default setting.
+When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two changes to the default settings.
 - Using Adam optimizer;
 - PolyLR is also used in the pre-training phase.
 
