@@ -25,11 +25,11 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | PAN (paper) | ResNet18 | Y | 89.3 | 81.0 | 85.0 | - |
 
 [CTW1500](https://github.com/Yuliang-Liu/Curve-Text-Detector)
-| Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Download |
+| Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
-| PAN | ResNet18 | N | 85.1 | 79.1 | 82.0 | |
+| PAN | ResNet18 | N | 85.1 | 79.1 | 82.0 | [Google Drive](https://drive.google.com/file/d/1qq7-MI1bOCykKj95uqjqkITa-nmXjinT/view?usp=sharing) |
 | PAN (paper) | ResNet18 | N | 84.6 | 77.7 | 81.0 | - |
-| PAN | ResNet18 | Y | 86.0 | 81.0 | 83.4 | [model](https://drive.google.com/file/d/1UY0K2JPsUmqmaJ68k2Q6KwByhogF1Usv/view?usp=sharing) |
+| PAN | ResNet18 | Y | 86.0 | 81.0 | 83.4 | [Google Drive](https://drive.google.com/file/d/1UY0K2JPsUmqmaJ68k2Q6KwByhogF1Usv/view?usp=sharing) |
 | PAN (paper) | ResNet18 | Y | 86.4 | 81.2 | 83.7 | - |
 
 [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
