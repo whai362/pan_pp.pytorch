@@ -44,6 +44,15 @@ For example:
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar
 ```
 
+## Speed
+```shell script
+python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} --report_speed
+```
+For example:
+```shell script
+python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar --report_speed
+```
+
 ## Evaluation
 See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 
