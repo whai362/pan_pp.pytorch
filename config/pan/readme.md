@@ -43,7 +43,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 [MSRA-TD500](http://www.iapr-tc11.org/dataset/MSRA-TD500/MSRA-TD500.zip)
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
-| PAN | ResNet18 | N | 82.0 | 79.4 | 80.7 | |
+| PAN | ResNet18 | N | 82.0 | 79.4 | 80.7 | [Google Drive](https://drive.google.com/file/d/1dUf9YH8tPuzijH5-7Ul6Vl6jTq5ziObJ/view?usp=sharing) |
 | PAN (paper) | ResNet18 | N | 80.7 | 77.3 | 78.9 | - |
 | PAN | ResNet18 | Y | 85.7 | 83.4 | 84.5 | |
 | PAN (paper) | ResNet18 | Y | 84.4 | 83.8 | 84.1 | - |
