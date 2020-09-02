@@ -37,7 +37,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 84.4 | 77.5 | 80.8 | [Google Drive](https://drive.google.com/file/d/1dHiXRyreSAG0vqbLyJ0PJfnj56l_P6WZ/view?usp=sharing) |
 | PAN (paper) | ResNet18 | N | 82.9 | 77.8 | 80.3 | - |
-| PAN | ResNet18 | Y | 86.6 | 79.7 | 83.0 | |
+| PAN | ResNet18 | Y | 86.6 | 79.7 | 83.0 | [Google Drive](https://drive.google.com/file/d/13m7hPZ8mhffaQwch_U6XPOvIG2ouNKHD/view?usp=sharing) |
 | PAN (paper) | ResNet18 | Y | 84.0 | 81.9 | 82.9 | - |
 
 [MSRA-TD500](http://www.iapr-tc11.org/dataset/MSRA-TD500/MSRA-TD500.zip)
