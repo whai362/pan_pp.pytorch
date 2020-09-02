@@ -21,3 +21,9 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | - | - | - | - | - | - |
 | PAN (ResNet-18) | N | 84.4 | 77.5 | 80.8 | |
 | PAN (ResNet-18) | Y | 86.6 | 79.7 | 83.0 | |
+
+## [Total-Text](https://github.com/cs-chan/Total-Text-Dataset)
+| Method | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
+| - | - | - | - | - | - |
+| PAN (ResNet-18) | N | 87.9 | 79.6 | 83.5 | |
+| PAN (ResNet-18) | Y | 88.5 | 81.7 | 85.0 | |
