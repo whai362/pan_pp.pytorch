@@ -16,4 +16,8 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 - PolyLR is also used in the pre-training phase.
 
 ## Results and Models
-Todo.
+[ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
+| Method | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
+| - | - | - | - | - | - |
+| PAN (ResNet-18) | N | 84.4 | 77.5 | 80.8 | |
+| PAN (ResNet-18) | Y | 86.6 | 79.7 | 83.0 | |
