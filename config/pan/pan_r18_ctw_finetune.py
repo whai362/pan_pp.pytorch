@@ -56,7 +56,7 @@ train_cfg = dict(
 )
 test_cfg = dict(
     min_score=0.88,
-    min_area=200,
+    min_area=16,
     bbox_type='poly',
     result_path='outputs/submit_ctw/'
 )

@@ -55,7 +55,7 @@ train_cfg = dict(
 )
 test_cfg = dict(
     min_score=0.86,
-    min_area=260,
+    min_area=16,
     bbox_type='rect',
     result_path='outputs/submit_msra/'
 )

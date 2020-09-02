@@ -5,7 +5,7 @@ Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
 [2] W. Wang, E. Xie, X. Song, Y. Zang, W. Wang, T. Lu, G. Yu, and C. Shen. Efficient and accurate arbitrary-shaped text detection with pixel aggregation network. In Proc. IEEE Int. Conf. Comp. Vis., pages 8440–8449, 2019.<br>
 [3] Paper is in preparation.
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `This repository only contains PAN now, PSENet and PAN++ are on the way. Thanks for your attention!`
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `This repository only contains PAN now, PSENet and PAN++ are on the way.`
 
 ## Recommended environment
 ```

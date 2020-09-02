@@ -93,7 +93,7 @@ class PA_Head(nn.Module):
             ind = label == i
             points = np.array(np.where(ind)).transpose((1, 0))
 
-            if points.shape[0] < cfg.test_cfg.min_area / 16:
+            if points.shape[0] < cfg.test_cfg.min_area:
                 label[ind] = 0
                 continue
 
