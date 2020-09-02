@@ -16,7 +16,8 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 - PolyLR is also used in the pre-training phase.
 
 ## Results and Models
-[Total-Text](https://github.com/cs-chan/Total-Text-Dataset)
+- [Total-Text](https://github.com/cs-chan/Total-Text-Dataset)
+
 | Method | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - |
 | PAN (ResNet18) | N | 87.9 | 79.6 | 83.5 | |
