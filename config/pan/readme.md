@@ -21,7 +21,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 87.9 | 79.6 | 83.5 | [Google Drive](https://drive.google.com/file/d/1YH4OeftQeFNKKafR1oxRyyT_2MRlRN_n/view?usp=sharing) |
 | PAN (paper) | ResNet18 | N | 88.0 | 79.4 | 83.5 | - |
-| PAN | ResNet18 | Y | 88.5 | 81.7 | 85.0 | |
+| PAN | ResNet18 | Y | 88.5 | 81.7 | 85.0 | [Google Drive](https://drive.google.com/file/d/1bWBTIfmlMd5zUy0b5YL4g8erDgSuLfNN/view?usp=sharing) |
 | PAN (paper) | ResNet18 | Y | 89.3 | 81.0 | 85.0 | - |
 
 [CTW1500](https://github.com/Yuliang-Liu/Curve-Text-Detector)
