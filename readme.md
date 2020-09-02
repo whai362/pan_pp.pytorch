@@ -54,7 +54,7 @@ Todo:
 - PSENet
 - PAN++
 
-## Citations
+## Citation
 ```
 @inproceedings{wang2019shape,
   title={Shape robust text detection with progressive scale expansion network},
