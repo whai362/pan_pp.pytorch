@@ -1,5 +1,5 @@
 ## Introduction
-Evaluation scripts for ICDAR 2015 (IC15), Total-Text (TT), CTW1500 (CTW) and MSRA-TD500 (MSRA) datasets.
+The evaluation scripts of ICDAR 2015 (IC15), Total-Text (TT), CTW1500 (CTW) and MSRA-TD500 (MSRA) datasets.
 
 ## [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
 - Text detection
