@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
 
 [1] W. Wang, E. Xie, X. Li, W. Hou, T. Lu, G. Yu, and S. Shao. Shape robust text detection with progressive scale expansion network. In Proc. IEEE Conf. Comp. Vis. Patt. Recogn., pages 9336–9345, 2019.<br>
@@ -7,7 +7,7 @@ Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `This repository only contains PAN now, PSENet and PAN++ are on the way. Thanks for your attention!`
 
-## Recommended Environment
+## Recommended environment
 ```
 Python 3.6+
 Pytorch 1.1.0
