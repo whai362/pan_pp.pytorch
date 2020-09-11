@@ -69,7 +69,7 @@ cdef np.ndarray[np.int32_t, ndim=2] _pa(np.ndarray[np.uint8_t, ndim=3] kernels,
 
     cdef libcpp.pair.pair[np.int16_t, np.int16_t] cur
     cdef int cur_label
-    for kernel_idx in range(kernel_num - 1, -1, -1):
+    for kernel_idx in range(kernel_num - 2, -1, -1):
         while not que.empty():
             cur = que.front()
             que.pop()

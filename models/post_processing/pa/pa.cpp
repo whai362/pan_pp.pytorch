@@ -3240,16 +3240,16 @@ static PyArrayObject *__pyx_f_2pa__pa(PyArrayObject *__pyx_v_kernels, PyArrayObj
   /* "pa.pyx":72
  *     cdef libcpp.pair.pair[np.int16_t, np.int16_t] cur
  *     cdef int cur_label
- *     for kernel_idx in range(kernel_num - 1, -1, -1):             # <<<<<<<<<<<<<<
+ *     for kernel_idx in range(kernel_num - 2, -1, -1):             # <<<<<<<<<<<<<<
  *         while not que.empty():
  *             cur = que.front()
  */
-  for (__pyx_t_14 = (__pyx_v_kernel_num - 1); __pyx_t_14 > -1L; __pyx_t_14-=1) {
+  for (__pyx_t_14 = (__pyx_v_kernel_num - 2); __pyx_t_14 > -1L; __pyx_t_14-=1) {
     __pyx_v_kernel_idx = __pyx_t_14;
 
     /* "pa.pyx":73
  *     cdef int cur_label
- *     for kernel_idx in range(kernel_num - 1, -1, -1):
+ *     for kernel_idx in range(kernel_num - 2, -1, -1):
  *         while not que.empty():             # <<<<<<<<<<<<<<
  *             cur = que.front()
  *             que.pop()
@@ -3259,7 +3259,7 @@ static PyArrayObject *__pyx_f_2pa__pa(PyArrayObject *__pyx_v_kernels, PyArrayObj
       if (!__pyx_t_17) break;
 
       /* "pa.pyx":74
- *     for kernel_idx in range(kernel_num - 1, -1, -1):
+ *     for kernel_idx in range(kernel_num - 2, -1, -1):
  *         while not que.empty():
  *             cur = que.front()             # <<<<<<<<<<<<<<
  *             que.pop()
