@@ -1,4 +1,4 @@
-# Efficient and Accurate Arbitrary-Shaped Text Detection with Pixel Aggregation Network
+# Shape robust text detection with progressive scale expansion network
 ## Introduction
 ```
 @inproceedings{wang2019shape,
