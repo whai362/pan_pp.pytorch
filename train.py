@@ -65,11 +65,12 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
 
         loss_kernels = torch.mean(outputs['loss_kernels'])
         losses_kernels.update(loss_kernels.item())
-
-        loss_emb = torch.mean(outputs['loss_emb'])
-        losses_emb.update(loss_emb.item())
-
-        loss = loss_text + loss_kernels + loss_emb
+        if 'loss_emb' in outputs.keys():
+            loss_emb = torch.mean(outputs['loss_emb'])
+            losses_emb.update(loss_emb.item())
+            loss = loss_text + loss_kernels + loss_emb
+        else:
+            loss = loss_text + loss_kernels
 
         iou_text = torch.mean(outputs['iou_text'])
         ious_text.update(iou_text.item())

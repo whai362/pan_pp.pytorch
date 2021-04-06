@@ -60,7 +60,6 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 - [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
 
 Todo:
-- PSENet
 - PAN++
 
 ## Citation
@@ -83,4 +82,8 @@ Todo:
 ```
 
 ## License
+This project is developed and maintained by [IMAGINE Lab@National Key Laboratory for Novel Software Technology, Nanjing University](https://cs.nju.edu.cn/lutong/ImagineLab.html).
+
+<img src="logo.jpg" alt="IMAGINE Lab">
+
 This project is released under the [Apache 2.0 license](https://github.com/whai362/pan_pp.pytorch/blob/master/LICENSE).
