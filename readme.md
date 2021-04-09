@@ -1,3 +1,6 @@
+## News
+- PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
+
 ## Introduction
 Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
 
