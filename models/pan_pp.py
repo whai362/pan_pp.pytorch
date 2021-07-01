@@ -118,8 +118,14 @@ class PAN_PP(nn.Module):
                     x_crops, gt_words = self.rec_head.extract_feature(
                         f, (imgs.size(2), imgs.size(3)), gt_instances * training_masks, gt_bboxes, gt_words, word_masks)
 
-                out_rec = self.rec_head(x_crops, gt_words)
-                loss_rec = self.rec_head.loss(out_rec, gt_words, reduce=False)
+                if x_crops is not None:
+                    out_rec = self.rec_head(x_crops, gt_words)
+                    loss_rec = self.rec_head.loss(out_rec, gt_words, reduce=False)
+                else:
+                    loss_rec = {
+                        'loss_rec': f.new_full((1,), -1, dtype=torch.float32),
+                        'acc_rec': f.new_full((1,), -1, dtype=torch.float32)
+                    }
                 outputs.update(loss_rec)
             else:
                 if len(det_res['bboxes']) > 0:
