@@ -337,7 +337,7 @@ def get_vocabulary(voc_type, EOS='EOS', PADDING='PAD', UNKNOWN='UNK'):
     return voc, char2id, id2char
 
 
-class PAN_PP_CombineAll(data.Dataset):
+class PAN_PP_jointTrain(data.Dataset):
     def __init__(self,
                  split='train',
                  is_transform=False,
@@ -597,7 +597,7 @@ class PAN_PP_CombineAll(data.Dataset):
         return data
 
 if __name__=='__main__':
-    data_loader = PANPP_CombineAll(
+    data_loader = PAN_PP_jointTrain(
         split='train',
         is_transform=True,
         img_size=736,

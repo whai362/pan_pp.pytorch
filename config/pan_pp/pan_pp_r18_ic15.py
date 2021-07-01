@@ -23,23 +23,17 @@ model = dict(
             loss_weight=0.5
         ),
         loss_emb=dict(
-            type='EmbLoss_v1',
+            type='EmbLoss_v2',
             feature_dim=4,
             loss_weight=0.25
         ),
         use_coordconv=False,
-    ),
-    recognition_head=dict(
-        type='PAN_PP_RecHead',
-        input_dim=512,
-        hidden_dim=128,
-        feature_size=(8, 32)
     )
 )
 data = dict(
     batch_size=16,
     train=dict(
-        type='PAN_PP_CombineAll',
+        type='PAN_IC15',
         split='train',
         is_transform=True,
         img_size=736,
@@ -49,7 +43,7 @@ data = dict(
         with_rec=True
     ),
     test=dict(
-        type='PAN_PP_IC15',
+        type='PAN_IC15',
         split='test',
         short_size=720,
         read_type='pil',
@@ -59,23 +53,15 @@ data = dict(
 train_cfg = dict(
     lr=1e-3,
     schedule='polylr',
-    epoch=3,
+    epoch=600,
     optimizer='Adam',
     use_ex=False,
 )
 test_cfg = dict(
-    min_score=0.8,
+    min_score=0.80,
     min_area=260,
     min_kernel_area=2.6,
     scale=4,
     bbox_type='rect',
-    result_path='outputs/submit_ic15_rec.zip',
-    rec_post_process=dict(
-        len_thres=3,
-        score_thres=0.95,
-        unalpha_score_thres=0.9,
-        ignore_score_thres=0.86,
-        editDist_thres=2,
-        voc_path=None #'./data/ICDAR2015/Challenge4/GenericVocabulary.txt'
-    ),
+    result_path='outputs/submit_ic15.zip',
 )

@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import math
 from ..utils import CoordConv2d
 from ..loss import build_loss, ohem_batch, iou
-from ..post_processing import pse_v2
+from ..post_processing import pa
 import cv2
 import time
 
@@ -66,7 +66,7 @@ class PAN_PP_DetHead(nn.Module):
         kernels = kernels.data.cpu().numpy()[0].astype(np.uint8)
         emb = emb.cpu().numpy()[0].astype(np.float32)
 
-        label = pse_v2(kernels, emb, cfg.test_cfg.min_kernel_area / (cfg.test_cfg.scale **2))
+        label = pa(kernels, emb, cfg.test_cfg.min_kernel_area / (cfg.test_cfg.scale **2))
 
         if cfg.report_speed:
             torch.cuda.synchronize()
