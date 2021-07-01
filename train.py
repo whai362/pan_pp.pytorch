@@ -36,6 +36,8 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
     ious_kernel = AverageMeter()
     accs_rec = AverageMeter()
 
+    with_rec = hasattr(cfg.model, 'recognition_head')
+
     # start time
     start = time.time()
     for iter, data in enumerate(train_loader):
@@ -78,7 +80,7 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
         ious_kernel.update(iou_kernel.item())
 
         # recognition loss
-        if hasattr(cfg.model, 'recognition_head'):
+        if with_rec:
             loss_rec = outputs['loss_rec']
             valid = loss_rec > 0.5
             if torch.sum(valid) > 0:
@@ -104,25 +106,34 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
 
         # print log
         if iter % 20 == 0:
-            output_log = '({batch}/{size}) LR: {lr:.6f} | Batch: {bt:.3f}s | Total: {total:.0f}min | ' \
-                         'ETA: {eta:.0f}min | Loss: {loss:.3f} | ' \
-                         'Loss(text/kernel/emb/rec): {loss_text:.3f}/{loss_kernel:.3f}/{loss_emb:.3f}/{loss_rec:.3f} ' \
-                         '| IoU(text/kernel): {iou_text:.3f}/{iou_kernel:.3f} | Acc rec: {acc_rec:.3f}'.format(
-                batch=iter + 1,
-                size=len(train_loader),
-                lr=optimizer.param_groups[0]['lr'],
-                bt=batch_time.avg,
-                total=batch_time.avg * iter / 60.0,
-                eta=batch_time.avg * (len(train_loader) - iter) / 60.0,
-                loss_text=losses_text.avg,
-                loss_kernel=losses_kernels.avg,
-                loss_emb=losses_emb.avg,
-                loss_rec=losses_rec.avg,
-                loss=losses.avg,
-                iou_text=ious_text.avg,
-                iou_kernel=ious_kernel.avg,
-                acc_rec=accs_rec.avg,
-            )
+            output_log = f'({iter + 1}/{len(train_loader)}) LR: {optimizer.param_groups[0]["lr"]:.6f} | ' \
+                         f'Batch: {batch_time.avg:.3f}s | Total: {batch_time.avg * iter / 60.0:.0f}min | ' \
+                         f'ETA: {batch_time.avg * (len(train_loader) - iter) / 60.0:.0f}min | ' \
+                         f'Loss: {losses.avg:.3f} | ' \
+                         f'Loss(text/kernel/emb{"/rec" if with_rec else ""}): {losses_text.avg:.3f}/{losses_kernels.avg:.3f}/' \
+                         f'{losses_emb.avg:.3f}{"/" + format(losses_rec.avg, ".3f") if with_rec else ""} | ' \
+                         f'IoU(text/kernel): {ious_text.avg:.3f}/{ious_kernel.avg:.3f}' \
+                         f'{" | ACC rec: " + format(accs_rec.avg, ".3f") if with_rec else ""}'
+
+            # output_log = '({batch}/{size}) LR: {lr:.6f} | Batch: {bt:.3f}s | Total: {total:.0f}min | ' \
+            #              'ETA: {eta:.0f}min | Loss: {loss:.3f} | ' \
+            #              'Loss(text/kernel/emb/rec): {loss_text:.3f}/{loss_kernel:.3f}/{loss_emb:.3f}/{loss_rec:.3f} ' \
+            #              '| IoU(text/kernel): {iou_text:.3f}/{iou_kernel:.3f} | Acc rec: {acc_rec:.3f}'.format(
+            #     batch=iter + 1,
+            #     size=len(train_loader),
+            #     lr=optimizer.param_groups[0]['lr'],
+            #     bt=batch_time.avg,
+            #     total=batch_time.avg * iter / 60.0,
+            #     eta=batch_time.avg * (len(train_loader) - iter) / 60.0,
+            #     loss_text=losses_text.avg,
+            #     loss_kernel=losses_kernels.avg,
+            #     loss_emb=losses_emb.avg,
+            #     loss_rec=losses_rec.avg,
+            #     loss=losses.avg,
+            #     iou_text=ious_text.avg,
+            #     iou_kernel=ious_kernel.avg,
+            #     acc_rec=accs_rec.avg,
+            # )
             print(output_log)
             sys.stdout.flush()
 
@@ -183,6 +194,12 @@ def main(args):
     )
 
     # model
+    if hasattr(cfg.model, 'recognition_head'):
+        cfg.model.recognition_head.update(dict(
+            voc=data_loader.voc,
+            char2id=data_loader.char2id,
+            id2char=data_loader.id2char,
+        ))
     model = build_model(cfg.model)
     model = torch.nn.DataParallel(model).cuda()
 

@@ -1,0 +1,1 @@
+cd ic15_word_spotting && python3 script.py -g=gt.zip -s=../../outputs/submit_ic15_rec.zip && cd ..

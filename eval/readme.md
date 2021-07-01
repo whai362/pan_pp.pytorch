@@ -6,9 +6,14 @@ Text detection
 ```shell script
 ./eval_ic15.sh
 ```
-End-to-End Text Spotting
+End-to-End Recognition
 ```shell script
-./eval_ic15_rec.sh
+./eval_ic15_end2end_rec.sh
+```
+
+Word Spotting
+```shell script
+./eval_ic15_word_spotting.sh
 ```
 
 ## [Total-Text](https://github.com/cs-chan/Total-Text-Dataset)

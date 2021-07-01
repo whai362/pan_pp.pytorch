@@ -11,7 +11,7 @@ from mmcv import Config
 from dataset import build_data_loader
 from models import build_model
 from models.utils import fuse_module
-from utils import ResultFormat, AverageMeter
+from utils import ResultFormat, AverageMeter, Corrector
 
 
 def report_speed(outputs, speed_meters):
@@ -29,6 +29,9 @@ def report_speed(outputs, speed_meters):
 def test(test_loader, model, cfg):
     model.eval()
 
+    with_rec = hasattr(cfg.model, 'recognition_head')
+    if with_rec:
+        pp = Corrector(cfg.data.test.type, **cfg.test_cfg.rec_post_process)
     rf = ResultFormat(cfg.data.test.type, cfg.test_cfg.result_path)
 
     if cfg.report_speed:
@@ -57,6 +60,9 @@ def test(test_loader, model, cfg):
 
         if cfg.report_speed:
             report_speed(outputs, speed_meters)
+        # post process of recognition
+        if with_rec:
+            outputs = pp.process(outputs)
 
         # save result
         image_name, _ = osp.splitext(osp.basename(test_loader.dataset.img_paths[idx]))
@@ -81,6 +87,12 @@ def main(args):
         num_workers=2,
     )
     # model
+    if hasattr(cfg.model, 'recognition_head'):
+        cfg.model.recognition_head.update(dict(
+            voc=data_loader.voc,
+            char2id=data_loader.char2id,
+            id2char=data_loader.id2char,
+        ))
     model = build_model(cfg.model)
     model = model.cuda()
 

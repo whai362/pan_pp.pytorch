@@ -232,7 +232,7 @@ def get_vocabulary(voc_type, EOS='EOS', PADDING='PAD', UNKNOWN='UNK'):
     return voc, char2id, id2char
 
 
-class PAN_IC15(data.Dataset):
+class PAN_PP_IC15(data.Dataset):
     def __init__(self,
                  split='train',
                  is_transform=False,

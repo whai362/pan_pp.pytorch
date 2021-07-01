@@ -33,12 +33,19 @@ class ResultFormat(object):
         tmp_folder = self.result_path.replace('.zip', '')
 
         bboxes = outputs['bboxes']
+        words = None
+        if 'words' in outputs:
+            words = outputs['words']
 
         lines = []
         for i, bbox in enumerate(bboxes):
             values = [int(v) for v in bbox]
-            line = "%d,%d,%d,%d,%d,%d,%d,%d\n" % tuple(values)
-            lines.append(line)
+            if words is None:
+                line = "%d,%d,%d,%d,%d,%d,%d,%d\n" % tuple(values)
+                lines.append(line)
+            elif words[i] is not None:
+                line = "%d,%d,%d,%d,%d,%d,%d,%d" % tuple(values) + ",%s\n" % words[i]
+                lines.append(line)
 
         file_name = 'res_%s.txt' % img_name
         file_path = osp.join(tmp_folder, file_name)

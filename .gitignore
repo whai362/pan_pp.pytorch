@@ -28,3 +28,4 @@ data
 vis/
 *~
 tmp/
+.idea/
