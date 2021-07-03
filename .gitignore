@@ -29,3 +29,5 @@ vis/
 *~
 tmp/
 .idea/
+outputs*/
+ckpt_key_set.py

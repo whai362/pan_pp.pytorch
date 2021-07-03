@@ -6,7 +6,7 @@ Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
 
 [1] W. Wang, E. Xie, X. Li, W. Hou, T. Lu, G. Yu, and S. Shao. Shape robust text detection with progressive scale expansion network. In Proc. IEEE Conf. Comp. Vis. Patt. Recogn., pages 9336–9345, 2019.<br>
 [2] W. Wang, E. Xie, X. Song, Y. Zang, W. Wang, T. Lu, G. Yu, and C. Shen. Efficient and accurate arbitrary-shaped text detection with pixel aggregation network. In Proc. IEEE Int. Conf. Comp. Vis., pages 8440–8449, 2019.<br>
-[3] Paper is in preparation.
+[3] W. Wang, E. Xie, X. Li, X. Liu, D. Liang, Z. Yang, T. Lu and C. Shen. PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text[J]. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2021.
 
 
 ## Recommended environment
@@ -61,9 +61,8 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 ## Benchmark and model zoo
 - [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
 - [PSENet](https://github.com/whai362/pan_pp.pytorch/tree/master/config/psenet)
+- [PAN++](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan_pp)
 
-Todo:
-- PAN++
 
 ## Citation
 ```
@@ -81,6 +80,13 @@ Todo:
   booktitle={Proceedings of the IEEE International Conference on Computer Vision},
   pages={8440--8449},
   year={2019}
+}
+@article{wang2021pan++,
+  title={PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text},
+  author={Wang, Wenhai and Xie, Enze and Li, Xiang and Liu, Xuebo and Liang, Ding and Zhibo, Yang and Lu, Tong and Shen, Chunhua},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2021},
+  publisher={IEEE}
 }
 ```
 

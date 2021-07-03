@@ -33,7 +33,7 @@ model = dict(
 data = dict(
     batch_size=16,
     train=dict(
-        type='PAN_IC15',
+        type='PAN_PP_IC15',
         split='train',
         is_transform=True,
         img_size=736,
@@ -43,7 +43,7 @@ data = dict(
         with_rec=True
     ),
     test=dict(
-        type='PAN_IC15',
+        type='PAN_PP_IC15',
         split='test',
         short_size=720,
         read_type='pil',
@@ -58,7 +58,7 @@ train_cfg = dict(
     use_ex=False,
 )
 test_cfg = dict(
-    min_score=0.80,
+    min_score=0.85,
     min_area=260,
     min_kernel_area=2.6,
     scale=4,
