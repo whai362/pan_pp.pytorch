@@ -17,14 +17,12 @@
 | Method | Backbone | Fine-tuning | Config | Precision (%) | Recall (%) | F-measure (%) | Model |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | PAN++ | ResNet18 | N  | [pan_pp_r18_ic15.py](https://github.com/whai362/pan_pp.pytorch/blob/master/config/pan_pp/pan_pp_r18_ic15.py) | 84.6 | 77.7 | 81.0 | [Google Drive](https://drive.google.com/file/d/1RmpwM0PyY0LRUOCPyzTqz_aXRDOH4mM8/view?usp=sharing) |
-| PAN++ (paper) | ResNet18 | N | - | 85.5 | 77.2 | 81.2 | - | 
 
 ### End-to-End Text Recognition
 [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
 | Method | Backbone | Fine-tuning | Config | Precision (%) | Recall (%) | F-measure (%) | Model |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| PAN++ | ResNet18 | N | [pan_pp_r18_jointTrain.py](https://github.com/whai362/pan_pp.pytorch/blob/master/config/pan_pp/pan_pp_r18_jointTrain.py) | 76.4 | 56.1 | 64.7 | [Google Drive](https://drive.google.com/file/d/1Hi3gD6m2Y7EHS46gG3umoXv9EtI3_VX8/view?usp=sharing) |
-| PAN++ (paper) | ResNet18 | N | - | 83.6 | 54.1 | 65.6 | - | 
+| PAN++ | ResNet18 | N | [pan_pp_r18_jointTrain.py](https://github.com/whai362/pan_pp.pytorch/blob/master/config/pan_pp/pan_pp_r18_jointTrain.py) | 83.6 | 54.1 | 65.6 | [Google Drive](https://drive.google.com/file/d/1Hi3gD6m2Y7EHS46gG3umoXv9EtI3_VX8/view?usp=sharing) |
 
 Todo:
 - Models and configs on other datasets.

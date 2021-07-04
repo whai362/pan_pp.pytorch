@@ -74,7 +74,7 @@ test_cfg = dict(
         len_thres=3,
         score_thres=0.95,
         unalpha_score_thres=0.9,
-        ignore_score_thres=0.86,
+        ignore_score_thres=0.93,
         editDist_thres=2,
         voc_path=None #'./data/ICDAR2015/Challenge4/GenericVocabulary.txt'
     ),
