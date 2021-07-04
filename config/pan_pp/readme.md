@@ -16,7 +16,7 @@
 [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
 | Method | Backbone | Fine-tuning | Config | Precision (%) | Recall (%) | F-measure (%) | Model |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| PAN++ | ResNet18 | N  | [pan_pp_r18_ic15.py](https://github.com/whai362/pan_pp.pytorch/blob/master/config/pan_pp/pan_pp_r18_ic15.py) | 84.6 | 77.7 | 81.0 | [Google Drive](https://drive.google.com/file/d/1RmpwM0PyY0LRUOCPyzTqz_aXRDOH4mM8/view?usp=sharing) |
+| PAN++ | ResNet18 | N  | [pan_pp_r18_ic15.py](https://github.com/whai362/pan_pp.pytorch/blob/master/config/pan_pp/pan_pp_r18_ic15.py) | 84.4 | 78.5 | 81.3 | [Google Drive](https://drive.google.com/file/d/1TecFipJKLRiOTq0bochFneo9dLJ9Lfj4/view?usp=sharing) |
 
 ### End-to-End Text Recognition
 [ICDAR 2015](https://rrc.cvc.uab.es/?ch=4)
