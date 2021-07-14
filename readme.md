@@ -27,6 +27,8 @@ Cython
 pip install -r requirement.txt
 ./compile.sh
 ```
+## Dataset
+See [dataset](https://github.com/whai362/pan_pp.pytorch/tree/master/dataset).
 
 ## Training
 ```shell script
