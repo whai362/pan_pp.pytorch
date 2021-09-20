@@ -17,6 +17,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 
 ## Results and Models
 - Total-Text
+
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 87.9 | 79.6 | 83.5 | [Google Drive](https://drive.google.com/file/d/1YH4OeftQeFNKKafR1oxRyyT_2MRlRN_n/view?usp=sharing) |
@@ -25,6 +26,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | PAN (paper) | ResNet18 | Y | 89.3 | 81.0 | 85.0 | - |
 
 - CTW1500
+
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 85.1 | 79.1 | 82.0 | [Google Drive](https://drive.google.com/file/d/1qq7-MI1bOCykKj95uqjqkITa-nmXjinT/view?usp=sharing) |
@@ -33,6 +35,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | PAN (paper) | ResNet18 | Y | 86.4 | 81.2 | 83.7 | - |
 
 - ICDAR 2015
+
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 84.4 | 77.5 | 80.8 | [Google Drive](https://drive.google.com/file/d/1dHiXRyreSAG0vqbLyJ0PJfnj56l_P6WZ/view?usp=sharing) |
@@ -41,6 +44,7 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | PAN (paper) | ResNet18 | Y | 84.0 | 81.9 | 82.9 | - |
 
 - MSRA-TD500
+
 | Method | Backbone | Fine-tuning | Precision (%) | Recall (%) | F-measure (%) | Model |
 | - | - | - | - | - | - | - |
 | PAN | ResNet18 | N | 82.0 | 79.4 | 80.7 | [Google Drive](https://drive.google.com/file/d/1dUf9YH8tPuzijH5-7Ul6Vl6jTq5ziObJ/view?usp=sharing) |
