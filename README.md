@@ -30,7 +30,7 @@ git clone https://github.com/whai362/pan_pp.pytorch.git
 Then, install PyTorch 1.1.0+, torchvision 0.3.0+, and other requirements:
 
 ```shell
-conda install -c pytorch pytorch torchvision
+conda install pytorch torchvision -c pytorch
 pip install -r requirement.txt
 ```
 
@@ -65,7 +65,7 @@ cd eval/
 For example:
 ```shell
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar
-cd eval
+cd eval/
 ./eval_ic15.sh
 ```
 
@@ -83,7 +83,7 @@ python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pt
 
 Please cite the related works in your publications if it helps your research:
 
-##### PSENet
+### PSENet
 
 ```
 @inproceedings{wang2019shape,
@@ -95,7 +95,7 @@ Please cite the related works in your publications if it helps your research:
 }
 ```
 
-##### PAN
+### PAN
 
 ```
 @inproceedings{wang2019efficient,
@@ -107,7 +107,7 @@ Please cite the related works in your publications if it helps your research:
 }
 ```
 
-##### PAN++
+### PAN++
 
 ```
 @article{wang2021pan++,
