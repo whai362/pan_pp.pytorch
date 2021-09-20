@@ -1,8 +1,8 @@
-# Shape robust text detection with progressive scale expansion network
+# Shape Robust Text Detection with Progressive Scale Expansion Network
 ## Introduction
 ```
 @inproceedings{wang2019shape,
-  title={Shape robust text detection with progressive scale expansion network},
+  title={Shape Robust Text Detection with Progressive Scale Expansion Network},
   author={Wang, Wenhai and Xie, Enze and Li, Xiang and Hou, Wenbo and Lu, Tong and Yu, Gang and Shao, Shuai},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   pages={9336--9345},

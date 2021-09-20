@@ -38,7 +38,7 @@ Finally, compile codes of post-processing:
 
 ```shell
 # build pse and pa algorithms
-./compile.sh
+sh ./compile.sh
 ```
 
 ## Dataset
@@ -87,7 +87,7 @@ Please cite the related works in your publications if it helps your research:
 
 ```
 @inproceedings{wang2019shape,
-  title={Shape robust text detection with progressive scale expansion network},
+  title={Shape Robust Text Detection with Progressive Scale Expansion Network},
   author={Wang, Wenhai and Xie, Enze and Li, Xiang and Hou, Wenbo and Lu, Tong and Yu, Gang and Shao, Shuai},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   pages={9336--9345},
@@ -99,7 +99,7 @@ Please cite the related works in your publications if it helps your research:
 
 ```
 @inproceedings{wang2019efficient,
-  title={Efficient and accurate arbitrary-shaped text detection with pixel aggregation network},
+  title={Efficient and Accurate Arbitrary-Shaped Text Detection with Pixel Aggregation Network},
   author={Wang, Wenhai and Xie, Enze and Song, Xiaoge and Zang, Yuhang and Wang, Wenjia and Lu, Tong and Yu, Gang and Shen, Chunhua},
   booktitle={Proceedings of the IEEE International Conference on Computer Vision},
   pages={8440--8449},
