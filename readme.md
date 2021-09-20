@@ -7,59 +7,70 @@ This repository contains the official implementations of [PSENet](https://openac
 <details open>
 <summary>Text Detection</summary>
 
-- [x] [PSENet (CVPR'2019)]()
-- [x] [PAN (ICCV'2019)]()
+- [x] [PSENet (CVPR'2019)](config/psenet/)
+- [x] [PAN (ICCV'2019)](config/pan/)
 
 </details>
-	
 
 <details open>
 <summary>Text Spotting</summary>
 
-- [x] [PAN++ (TPAMI'2021)]()
+- [x] [PAN++ (TPAMI'2021)](config/pan_pp)
 
 </details>
 
-## Environment
-```
-Python 3.6+
-Pytorch 1.1.0
-torchvision 0.3
-mmcv 0.2.12
-editdistance
-Polygon3
-pyclipper
-opencv-python 3.4.2.17
-Cython
+## Installation
+
+First, clone the repository locally:
+
+```shell
+git clone https://github.com/whai362/pan_pp.pytorch.git
 ```
 
-## Install
-```shell script
+Then, install PyTorch 1.1.0+, torchvision 0.3.0+, and other requirements:
+
+```shell
+conda install -c pytorch pytorch torchvision
 pip install -r requirement.txt
+```
+
+Finally, compile codes of post-processing:
+
+```shell
+# build pse and pa algorithms
 ./compile.sh
 ```
+
 ## Dataset
-See [dataset](https://github.com/whai362/pan_pp.pytorch/tree/master/dataset).
+Please refer to [dataset/README.md](dataset/README.md) for dataset preparation.
 
 ## Training
-```shell script
+```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py ${CONFIG_FILE}
 ```
 For example:
-```shell script
+```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py config/pan/pan_r18_ic15.py
 ```
 
-## Test
-```
+## Testing
+
+### Evaluate the performance
+
+```shell
 python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE}
+cd eval/
+./eval_{DATASET}.sh
 ```
 For example:
-```shell script
+```shell
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar
+cd eval
+./eval_ic15.sh
 ```
 
-## Speed
+### Evaluate the speed
+
 ```shell script
 python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} --report_speed
 ```
@@ -67,14 +78,6 @@ For example:
 ```shell script
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar --report_speed
 ```
-
-## Evaluation
-See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
-
-## Benchmark and model zoo
-- [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
-- [PSENet](https://github.com/whai362/pan_pp.pytorch/tree/master/config/psenet)
-- [PAN++](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan_pp)
 
 ## Citation
 
