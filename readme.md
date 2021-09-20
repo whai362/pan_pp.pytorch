@@ -2,20 +2,21 @@
 - (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
 ## Introduction
-This repository contains the official implementations of PSENet, PAN and PAN++.
+This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html) and [PAN++](https://arxiv.org/abs/2105.00405).
 
 <details open>
 <summary>Text Detection</summary>
 
-- [x] [PSENet (CVPR'2019)](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html)
-- [x] [PAN (ICCV'2019)](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html)
+- [x] [PSENet (CVPR'2019)]()
+- [x] [PAN (ICCV'2019)]()
 
 </details>
 	
+
 <details open>
 <summary>Text Spotting</summary>
 
-- [x] [PAN++ (TPAMI'2021)](https://arxiv.org/abs/2105.00405)
+- [x] [PAN++ (TPAMI'2021)]()
 
 </details>
 
@@ -75,8 +76,12 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 - [PSENet](https://github.com/whai362/pan_pp.pytorch/tree/master/config/psenet)
 - [PAN++](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan_pp)
 
-
 ## Citation
+
+Please cite the related works in your publications if it helps your research:
+
+##### PSENet
+
 ```
 @inproceedings{wang2019shape,
   title={Shape robust text detection with progressive scale expansion network},
@@ -85,7 +90,11 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
   pages={9336--9345},
   year={2019}
 }
+```
 
+##### PAN
+
+```
 @inproceedings{wang2019efficient,
   title={Efficient and accurate arbitrary-shaped text detection with pixel aggregation network},
   author={Wang, Wenhai and Xie, Enze and Song, Xiaoge and Zang, Yuhang and Wang, Wenjia and Lu, Tong and Yu, Gang and Shen, Chunhua},
@@ -93,6 +102,11 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
   pages={8440--8449},
   year={2019}
 }
+```
+
+##### PAN++
+
+```
 @article{wang2021pan++,
   title={PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text},
   author={Wang, Wenhai and Xie, Enze and Li, Xiang and Liu, Xuebo and Liang, Ding and Zhibo, Yang and Lu, Tong and Shen, Chunhua},
@@ -103,6 +117,7 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 ```
 
 ## License
+
 This project is developed and maintained by [IMAGINE Lab@National Key Laboratory for Novel Software Technology, Nanjing University](https://cs.nju.edu.cn/lutong/ImagineLab.html).
 
 <img src="logo.jpg" alt="IMAGINE Lab">
