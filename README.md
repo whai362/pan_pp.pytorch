@@ -1,54 +1,76 @@
 ## News
-- PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
+- (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
 ## Introduction
-Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
+This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html) and [PAN++](https://arxiv.org/abs/2105.00405).
 
-[1] W. Wang, E. Xie, X. Li, W. Hou, T. Lu, G. Yu, and S. Shao. Shape robust text detection with progressive scale expansion network. In Proc. IEEE Conf. Comp. Vis. Patt. Recogn., pages 9336–9345, 2019.<br>
-[2] W. Wang, E. Xie, X. Song, Y. Zang, W. Wang, T. Lu, G. Yu, and C. Shen. Efficient and accurate arbitrary-shaped text detection with pixel aggregation network. In Proc. IEEE Int. Conf. Comp. Vis., pages 8440–8449, 2019.<br>
-[3] W. Wang, E. Xie, X. Li, X. Liu, D. Liang, Z. Yang, T. Lu and C. Shen. PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text[J]. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2021.
+<details open>
+<summary>Text Detection</summary>
 
+- [x] [PSENet (CVPR'2019)](config/psenet/)
+- [x] [PAN (ICCV'2019)](config/pan/)
 
-## Recommended environment
+</details>
+
+<details open>
+<summary>Text Spotting</summary>
+
+- [x] [PAN++ (TPAMI'2021)](config/pan_pp)
+
+</details>
+
+## Installation
+
+First, clone the repository locally:
+
+```shell
+git clone https://github.com/whai362/pan_pp.pytorch.git
 ```
-Python 3.6+
-Pytorch 1.1.0
-torchvision 0.3
-mmcv 0.2.12
-editdistance
-Polygon3
-pyclipper
-opencv-python 3.4.2.17
-Cython
-```
 
-## Install
-```shell script
+Then, install PyTorch 1.1.0+, torchvision 0.3.0+, and other requirements:
+
+```shell
+conda install -c pytorch pytorch torchvision
 pip install -r requirement.txt
-./compile.sh
 ```
+
+Finally, compile codes of post-processing:
+
+```shell
+# build pse and pa algorithms
+sh ./compile.sh
+```
+
 ## Dataset
-See [dataset](https://github.com/whai362/pan_pp.pytorch/tree/master/dataset).
+Please refer to [dataset/README.md](dataset/README.md) for dataset preparation.
 
 ## Training
-```shell script
+```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py ${CONFIG_FILE}
 ```
 For example:
-```shell script
+```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py config/pan/pan_r18_ic15.py
 ```
 
-## Test
-```
+## Testing
+
+### Evaluate the performance
+
+```shell
 python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE}
+cd eval/
+./eval_{DATASET}.sh
 ```
 For example:
-```shell script
+```shell
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar
+cd eval
+./eval_ic15.sh
 ```
 
-## Speed
+### Evaluate the speed
+
 ```shell script
 python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} --report_speed
 ```
@@ -57,32 +79,37 @@ For example:
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar --report_speed
 ```
 
-## Evaluation
-See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
-
-## Benchmark and model zoo
-- [PAN](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan)
-- [PSENet](https://github.com/whai362/pan_pp.pytorch/tree/master/config/psenet)
-- [PAN++](https://github.com/whai362/pan_pp.pytorch/tree/master/config/pan_pp)
-
-
 ## Citation
+
+Please cite the related works in your publications if it helps your research:
+
+##### PSENet
+
 ```
 @inproceedings{wang2019shape,
-  title={Shape robust text detection with progressive scale expansion network},
+  title={Shape Robust Text Detection with Progressive Scale Expansion Network},
   author={Wang, Wenhai and Xie, Enze and Li, Xiang and Hou, Wenbo and Lu, Tong and Yu, Gang and Shao, Shuai},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   pages={9336--9345},
   year={2019}
 }
+```
 
+##### PAN
+
+```
 @inproceedings{wang2019efficient,
-  title={Efficient and accurate arbitrary-shaped text detection with pixel aggregation network},
+  title={Efficient and Accurate Arbitrary-Shaped Text Detection with Pixel Aggregation Network},
   author={Wang, Wenhai and Xie, Enze and Song, Xiaoge and Zang, Yuhang and Wang, Wenjia and Lu, Tong and Yu, Gang and Shen, Chunhua},
   booktitle={Proceedings of the IEEE International Conference on Computer Vision},
   pages={8440--8449},
   year={2019}
 }
+```
+
+##### PAN++
+
+```
 @article{wang2021pan++,
   title={PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text},
   author={Wang, Wenhai and Xie, Enze and Li, Xiang and Liu, Xuebo and Liang, Ding and Zhibo, Yang and Lu, Tong and Shen, Chunhua},
@@ -93,6 +120,7 @@ See [eval](https://github.com/whai362/pan_pp.pytorch/tree/master/eval).
 ```
 
 ## License
+
 This project is developed and maintained by [IMAGINE Lab@National Key Laboratory for Novel Software Technology, Nanjing University](https://cs.nju.edu.cn/lutong/ImagineLab.html).
 
 <img src="logo.jpg" alt="IMAGINE Lab">
