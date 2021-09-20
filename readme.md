@@ -1,15 +1,25 @@
 ## News
-- PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
+- (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
 ## Introduction
-Official Pytorch implementations of PSENet [1], PAN [2] and PAN++ [3].
+This repository contains the official implementations of PSENet, PAN and PAN++.
 
-[1] W. Wang, E. Xie, X. Li, W. Hou, T. Lu, G. Yu, and S. Shao. Shape robust text detection with progressive scale expansion network. In Proc. IEEE Conf. Comp. Vis. Patt. Recogn., pages 9336–9345, 2019.<br>
-[2] W. Wang, E. Xie, X. Song, Y. Zang, W. Wang, T. Lu, G. Yu, and C. Shen. Efficient and accurate arbitrary-shaped text detection with pixel aggregation network. In Proc. IEEE Int. Conf. Comp. Vis., pages 8440–8449, 2019.<br>
-[3] W. Wang, E. Xie, X. Li, X. Liu, D. Liang, Z. Yang, T. Lu and C. Shen. PAN++: Towards Efficient and Accurate End-to-End Spotting of Arbitrarily-Shaped Text[J]. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2021.
+<details open>
+<summary>Text Detection</summary>
 
+- [x] [PSENet (CVPR'2019)](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html)
+- [x] [PAN (ICCV'2019)](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html)
 
-## Recommended environment
+</details>
+	
+<details open>
+<summary>Text Spotting</summary>
+
+- [x] [PAN++ (TPAMI'2021)](https://arxiv.org/abs/2105.00405)
+
+</details>
+
+## Environment
 ```
 Python 3.6+
 Pytorch 1.1.0
