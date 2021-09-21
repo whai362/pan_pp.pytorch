@@ -359,7 +359,7 @@ def get_vocabulary(voc_type, EOS='EOS', PADDING='PAD', UNKNOWN='UNK'):
     return voc, char2id, id2char
 
 
-class PAN_PP_jointTrain(data.Dataset):
+class PAN_PP_Joint_Train(data.Dataset):
     def __init__(self,
                  split='train',
                  is_transform=False,
@@ -651,13 +651,13 @@ class PAN_PP_jointTrain(data.Dataset):
 
 
 if __name__ == '__main__':
-    data_loader = PAN_PP_jointTrain(split='train',
-                                    is_transform=True,
-                                    img_size=736,
-                                    short_size=736,
-                                    kernel_scale=0.5,
-                                    read_type='pil',
-                                    with_rec=True)
+    data_loader = PAN_PP_Joint_Train(split='train',
+                                     is_transform=True,
+                                     img_size=736,
+                                     short_size=736,
+                                     kernel_scale=0.5,
+                                     read_type='pil',
+                                     with_rec=True)
     train_loader = torch.utils.data.DataLoader(data_loader,
                                                batch_size=8,
                                                shuffle=False,
