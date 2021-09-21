@@ -1,17 +1,16 @@
+import random
+import string
+
+import cv2
+import mmcv
 import numpy as np
+import Polygon as plg
+import pyclipper
+import scipy.io as scio
+import torch
+import torchvision.transforms as transforms
 from PIL import Image
 from torch.utils import data
-import cv2
-import random
-import torchvision.transforms as transforms
-import torch
-import pyclipper
-import Polygon as plg
-import math
-import string
-import scipy.io as scio
-import mmcv
-from mmcv.parallel import DataContainer as DC
 
 tt_root_dir = './data/total_text/'
 tt_train_data_dir = tt_root_dir + 'Images/Train/'
@@ -27,7 +26,7 @@ def get_img(img_path, read_type='pil'):
             img = img[:, :, [2, 1, 0]]
         elif read_type == 'pil':
             img = np.array(Image.open(img_path))
-    except Exception as e:
+    except Exception:
         print(img_path)
         raise
     return img
@@ -86,7 +85,9 @@ def random_rotate(imgs):
         img = imgs[i]
         w, h = img.shape[:2]
         rotation_matrix = cv2.getRotationMatrix2D((h / 2, w / 2), angle, 1)
-        img_rotation = cv2.warpAffine(img, rotation_matrix, (h, w), flags=cv2.INTER_NEAREST)
+        img_rotation = cv2.warpAffine(img,
+                                      rotation_matrix, (h, w),
+                                      flags=cv2.INTER_NEAREST)
         imgs[i] = img_rotation
     return imgs
 
@@ -156,11 +157,23 @@ def random_crop_padding(imgs, target_size):
         if len(imgs[idx].shape) == 3:
             s3_length = int(imgs[idx].shape[-1])
             img = imgs[idx][i:i + t_h, j:j + t_w, :]
-            img_p = cv2.copyMakeBorder(img, 0, p_h - t_h, 0, p_w - t_w, borderType=cv2.BORDER_CONSTANT,
-                                       value=tuple(0 for i in range(s3_length)))
+            img_p = cv2.copyMakeBorder(img,
+                                       0,
+                                       p_h - t_h,
+                                       0,
+                                       p_w - t_w,
+                                       borderType=cv2.BORDER_CONSTANT,
+                                       value=tuple(0
+                                                   for i in range(s3_length)))
         else:
             img = imgs[idx][i:i + t_h, j:j + t_w]
-            img_p = cv2.copyMakeBorder(img, 0, p_h - t_h, 0, p_w - t_w, borderType=cv2.BORDER_CONSTANT, value=(0,))
+            img_p = cv2.copyMakeBorder(img,
+                                       0,
+                                       p_h - t_h,
+                                       0,
+                                       p_w - t_w,
+                                       borderType=cv2.BORDER_CONSTANT,
+                                       value=(0, ))
         n_imgs.append(img_p)
     return n_imgs
 
@@ -205,7 +218,8 @@ def shrink(bboxes, rate, max_shr=20):
         try:
             pco = pyclipper.PyclipperOffset()
             pco.AddPath(bbox, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
-            offset = min(int(area * (1 - rate) / (peri + 0.001) + 0.5), max_shr)
+            offset = min(int(area * (1 - rate) / (peri + 0.001) + 0.5),
+                         max_shr)
 
             shrinked_bbox = pco.Execute(-offset)
             if len(shrinked_bbox) == 0:
@@ -218,7 +232,7 @@ def shrink(bboxes, rate, max_shr=20):
                 continue
 
             shrinked_bboxes.append(shrinked_bbox)
-        except Exception as e:
+        except Exception:
             print(type(shrinked_bbox), shrinked_bbox)
             print('area:', area, 'peri:', peri)
             shrinked_bboxes.append(bbox)
@@ -234,7 +248,8 @@ def get_vocabulary(voc_type, EOS='EOS', PADDING='PAD', UNKNOWN='UNK'):
     elif voc_type == 'ALLCASES_SYMBOLS':
         voc = list(string.printable[:-6])
     else:
-        raise KeyError('voc_type must be one of "LOWERCASE", "ALLCASES", "ALLCASES_SYMBOLS"')
+        raise KeyError('voc_type must be one of "LOWERCASE", '
+                       '"ALLCASES", "ALLCASES_SYMBOLS"')
 
     # update the voc with specifical chars
     voc.append(EOS)
@@ -260,7 +275,9 @@ class PAN_TT(data.Dataset):
         self.split = split
         self.is_transform = is_transform
 
-        self.img_size = img_size if (img_size is None or isinstance(img_size, tuple)) else (img_size, img_size)
+        self.img_size = img_size if (
+            img_size is None or isinstance(img_size, tuple)) else (img_size,
+                                                                   img_size)
         self.kernel_scale = kernel_scale
         self.short_size = short_size
         self.with_rec = with_rec
@@ -280,8 +297,12 @@ class PAN_TT(data.Dataset):
         self.gt_paths = []
 
         for data_dir, gt_dir in zip(data_dirs, gt_dirs):
-            img_names = [img_name for img_name in mmcv.utils.scandir(data_dir, '.jpg')]
-            img_names.extend([img_name for img_name in mmcv.utils.scandir(data_dir, '.png')])
+            img_names = [
+                img_name for img_name in mmcv.utils.scandir(data_dir, '.jpg')
+            ]
+            img_names.extend([
+                img_name for img_name in mmcv.utils.scandir(data_dir, '.png')
+            ])
 
             img_paths = []
             gt_paths = []
@@ -339,13 +360,17 @@ class PAN_TT(data.Dataset):
             bboxes = bboxes[:self.max_word_num]
             words = words[:self.max_word_num]
 
-        gt_words = np.full((self.max_word_num + 1, self.max_word_len), self.char2id['PAD'], dtype=np.int32)
-        word_mask = np.zeros((self.max_word_num + 1,), dtype=np.int32)
+        gt_words = np.full((self.max_word_num + 1, self.max_word_len),
+                           self.char2id['PAD'],
+                           dtype=np.int32)
+        word_mask = np.zeros((self.max_word_num + 1, ), dtype=np.int32)
         for i, word in enumerate(words):
             if word == '###' or word == '???':
                 continue
             word = word.lower()
-            gt_word = np.full((self.max_word_len,), self.char2id['PAD'], dtype=np.int)
+            gt_word = np.full((self.max_word_len, ),
+                              self.char2id['PAD'],
+                              dtype=np.int)
             for j, char in enumerate(word):
                 if j > self.max_word_len - 1:
                     break
@@ -367,8 +392,10 @@ class PAN_TT(data.Dataset):
         training_mask = np.ones(img.shape[0:2], dtype='uint8')
         if len(bboxes) > 0:
             for i in range(len(bboxes)):
-                bboxes[i] = np.reshape(bboxes[i] * ([img.shape[1], img.shape[0]] * (bboxes[i].shape[0] // 2)),
-                                       (bboxes[i].shape[0] // 2, 2)).astype('int32')
+                bboxes[i] = np.reshape(
+                    bboxes[i] * ([img.shape[1], img.shape[0]] *
+                                 (bboxes[i].shape[0] // 2)),
+                    (bboxes[i].shape[0] // 2, 2)).astype('int32')
             for i in range(len(bboxes)):
                 cv2.drawContours(gt_instance, [bboxes[i]], -1, i + 1, -1)
                 if words[i] == '###':
@@ -391,8 +418,10 @@ class PAN_TT(data.Dataset):
             imgs = random_rotate(imgs)
             gt_instance_before_crop = imgs[1].copy()
             imgs = random_crop_padding(imgs, self.img_size)
-            img, gt_instance, training_mask, gt_kernels = imgs[0], imgs[1], imgs[2], imgs[3:]
-            word_mask = update_word_mask(gt_instance, gt_instance_before_crop, word_mask)
+            img, gt_instance, training_mask, gt_kernels = imgs[0], imgs[
+                1], imgs[2], imgs[3:]
+            word_mask = update_word_mask(gt_instance, gt_instance_before_crop,
+                                         word_mask)
 
         gt_text = gt_instance.copy()
         gt_text[gt_text > 0] = 1
@@ -412,13 +441,15 @@ class PAN_TT(data.Dataset):
         if self.is_transform:
             img = Image.fromarray(img)
             img = img.convert('RGB')
-            img = transforms.ColorJitter(brightness=32.0 / 255, saturation=0.5)(img)
+            img = transforms.ColorJitter(brightness=32.0 / 255,
+                                         saturation=0.5)(img)
         else:
             img = Image.fromarray(img)
             img = img.convert('RGB')
 
         img = transforms.ToTensor()(img)
-        img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img)
+        img = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                   std=[0.229, 0.224, 0.225])(img)
         gt_text = torch.from_numpy(gt_text).long()
         gt_kernels = torch.from_numpy(gt_kernels).long()
         training_mask = torch.from_numpy(training_mask).long()
@@ -436,10 +467,7 @@ class PAN_TT(data.Dataset):
             gt_bboxes=gt_bboxes,
         )
         if self.with_rec:
-            data.update(dict(
-                gt_words=gt_words,
-                word_masks=word_mask
-            ))
+            data.update(dict(gt_words=gt_words, word_masks=word_mask))
 
         return data
 
@@ -447,24 +475,18 @@ class PAN_TT(data.Dataset):
         img_path = self.img_paths[index]
 
         img = get_img(img_path, self.read_type)
-        img_meta = dict(
-            org_img_size=np.array(img.shape[:2])
-        )
+        img_meta = dict(org_img_size=np.array(img.shape[:2]))
 
         img = scale_aligned_short(img, self.short_size)
-        img_meta.update(dict(
-            img_size=np.array(img.shape[:2])
-        ))
+        img_meta.update(dict(img_size=np.array(img.shape[:2])))
 
         img = Image.fromarray(img)
         img = img.convert('RGB')
         img = transforms.ToTensor()(img)
-        img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img)
+        img = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                   std=[0.229, 0.224, 0.225])(img)
 
-        data = dict(
-            imgs=img,
-            img_metas=img_meta
-        )
+        data = dict(imgs=img, img_metas=img_meta)
 
         return data
 

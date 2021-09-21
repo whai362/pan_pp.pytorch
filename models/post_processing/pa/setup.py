@@ -1,13 +1,14 @@
-from distutils.core import setup, Extension
-from Cython.Build import cythonize
+from distutils.core import Extension, setup
+
 import numpy
-setup(ext_modules = cythonize(Extension(
-    'pa',
-    sources=['pa.pyx'],
-    language='c++',
-    include_dirs=[numpy.get_include()],
-    library_dirs=[],
-    libraries=[],
-    extra_compile_args=['-O3'],
-    extra_link_args=[]
-)))
+from Cython.Build import cythonize
+
+setup(ext_modules=cythonize(
+    Extension('pa',
+              sources=['pa.pyx'],
+              language='c++',
+              include_dirs=[numpy.get_include()],
+              library_dirs=[],
+              libraries=[],
+              extra_compile_args=['-O3'],
+              extra_link_args=[])))

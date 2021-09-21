@@ -1,12 +1,8 @@
-import os
-import sys
-import numpy as np
-
 class Logger(object):
     def __init__(self, fpath, title=None, resume=False):
         self.file = None
         self.resume = resume
-        self.title = '' if title == None else title
+        self.title = '' if title is None else title
         if fpath is not None:
             if resume:
                 self.file = open(fpath, 'r')
@@ -38,14 +34,13 @@ class Logger(object):
         self.file.write('\n')
         self.file.flush()
 
-
     def append(self, numbers):
         assert len(self.names) == len(numbers)
         for index, num in enumerate(numbers):
             if type(num) == str:
                 self.file.write(num)
             else:
-                self.file.write("{0:.6f}".format(num))
+                self.file.write('{0:.6f}'.format(num))
             self.file.write('\t')
             self.numbers[self.names[index]].append(num)
         self.file.write('\n')

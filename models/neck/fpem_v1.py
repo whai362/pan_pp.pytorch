@@ -1,7 +1,6 @@
-import torch
 import torch.nn as nn
-import math
 import torch.nn.functional as F
+
 from ..utils import Conv_BN_ReLU
 
 
@@ -9,22 +8,58 @@ class FPEM_v1(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(FPEM_v1, self).__init__()
         planes = out_channels
-        self.dwconv3_1 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, groups=planes, bias=False)
+        self.dwconv3_1 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=1,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer3_1 = Conv_BN_ReLU(planes, planes)
 
-        self.dwconv2_1 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, groups=planes, bias=False)
+        self.dwconv2_1 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=1,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer2_1 = Conv_BN_ReLU(planes, planes)
 
-        self.dwconv1_1 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, groups=planes, bias=False)
+        self.dwconv1_1 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=1,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer1_1 = Conv_BN_ReLU(planes, planes)
 
-        self.dwconv2_2 = nn.Conv2d(planes, planes, kernel_size=3, stride=2, padding=1, groups=planes, bias=False)
+        self.dwconv2_2 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=2,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer2_2 = Conv_BN_ReLU(planes, planes)
 
-        self.dwconv3_2 = nn.Conv2d(planes, planes, kernel_size=3, stride=2, padding=1, groups=planes, bias=False)
+        self.dwconv3_2 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=2,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer3_2 = Conv_BN_ReLU(planes, planes)
 
-        self.dwconv4_2 = nn.Conv2d(planes, planes, kernel_size=3, stride=2, padding=1, groups=planes, bias=False)
+        self.dwconv4_2 = nn.Conv2d(planes,
+                                   planes,
+                                   kernel_size=3,
+                                   stride=2,
+                                   padding=1,
+                                   groups=planes,
+                                   bias=False)
         self.smooth_layer4_2 = Conv_BN_ReLU(planes, planes)
 
     def _upsample_add(self, x, y):

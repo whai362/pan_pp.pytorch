@@ -1,17 +1,16 @@
-import torch
-import numpy as np
 import argparse
+import json
 import os
 import os.path as osp
 import sys
-import time
-import json
+
+import torch
 from mmcv import Config
 
 from dataset import build_data_loader
 from models import build_model
 from models.utils import fuse_module
-from utils import ResultFormat, AverageMeter, Corrector
+from utils import AverageMeter, Corrector, ResultFormat
 
 
 def report_speed(outputs, speed_meters):
@@ -35,14 +34,12 @@ def test(test_loader, model, cfg):
     rf = ResultFormat(cfg.data.test.type, cfg.test_cfg.result_path)
 
     if cfg.report_speed:
-        speed_meters = dict(
-            backbone_time=AverageMeter(500),
-            neck_time=AverageMeter(500),
-            det_head_time=AverageMeter(500),
-            det_pa_time=AverageMeter(500),
-            rec_time=AverageMeter(500),
-            total_time=AverageMeter(500)
-        )
+        speed_meters = dict(backbone_time=AverageMeter(500),
+                            neck_time=AverageMeter(500),
+                            det_head_time=AverageMeter(500),
+                            det_pa_time=AverageMeter(500),
+                            rec_time=AverageMeter(500),
+                            total_time=AverageMeter(500))
 
     for idx, data in enumerate(test_loader):
         print('Testing %d/%d' % (idx, len(test_loader)))
@@ -50,9 +47,7 @@ def test(test_loader, model, cfg):
 
         # prepare input
         data['imgs'] = data['imgs'].cuda()
-        data.update(dict(
-            cfg=cfg
-        ))
+        data.update(dict(cfg=cfg))
 
         # forward
         with torch.no_grad():
@@ -65,16 +60,15 @@ def test(test_loader, model, cfg):
             outputs = pp.process(outputs)
 
         # save result
-        image_name, _ = osp.splitext(osp.basename(test_loader.dataset.img_paths[idx]))
+        image_name, _ = osp.splitext(
+            osp.basename(test_loader.dataset.img_paths[idx]))
         rf.write_result(image_name, outputs)
 
 
 def main(args):
     cfg = Config.fromfile(args.config)
     for d in [cfg, cfg.data.test]:
-        d.update(dict(
-            report_speed=args.report_speed
-        ))
+        d.update(dict(report_speed=args.report_speed))
     print(json.dumps(cfg._cfg_dict, indent=4))
     sys.stdout.flush()
 
@@ -88,17 +82,19 @@ def main(args):
     )
     # model
     if hasattr(cfg.model, 'recognition_head'):
-        cfg.model.recognition_head.update(dict(
-            voc=data_loader.voc,
-            char2id=data_loader.char2id,
-            id2char=data_loader.id2char,
-        ))
+        cfg.model.recognition_head.update(
+            dict(
+                voc=data_loader.voc,
+                char2id=data_loader.char2id,
+                id2char=data_loader.id2char,
+            ))
     model = build_model(cfg.model)
     model = model.cuda()
 
     if args.checkpoint is not None:
         if os.path.isfile(args.checkpoint):
-            print("Loading model and optimizer from checkpoint '{}'".format(args.checkpoint))
+            print("Loading model and optimizer from checkpoint '{}'".format(
+                args.checkpoint))
             sys.stdout.flush()
 
             checkpoint = torch.load(args.checkpoint)

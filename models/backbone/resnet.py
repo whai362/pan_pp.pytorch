@@ -1,8 +1,9 @@
+import math
 import os
 import sys
+
 import torch
 import torch.nn as nn
-import math
 
 try:
     from urllib import urlretrieve
@@ -11,17 +12,22 @@ except ImportError:
 
 __all__ = ['resnet18', 'resnet50', 'resnet101']
 
+base_url = 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/'
 model_urls = {
-    'resnet18': 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/resnet18-imagenet.pth',
-    'resnet50': 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/resnet50-imagenet.pth',
-    'resnet101': 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/resnet101-imagenet.pth'
+    'resnet18': base_url + 'resnet18-imagenet.pth',
+    'resnet50': base_url + 'resnet50-imagenet.pth',
+    'resnet101': base_url + 'resnet101-imagenet.pth'
 }
 
 
 def conv3x3(in_planes, out_planes, stride=1):
-    "3x3 convolution with padding"
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
-                     padding=1, bias=False)
+    """3x3 convolution with padding."""
+    return nn.Conv2d(in_planes,
+                     out_planes,
+                     kernel_size=3,
+                     stride=stride,
+                     padding=1,
+                     bias=False)
 
 
 class BasicBlock(nn.Module):
@@ -63,8 +69,12 @@ class Bottleneck(nn.Module):
         super(Bottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
-                               padding=1, bias=False)
+        self.conv2 = nn.Conv2d(planes,
+                               planes,
+                               kernel_size=3,
+                               stride=stride,
+                               padding=1,
+                               bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
         self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
         self.bn3 = nn.BatchNorm2d(planes * 4)
@@ -96,9 +106,18 @@ class Bottleneck(nn.Module):
 
 
 class Convkxk(nn.Module):
-    def __init__(self, in_planes, out_planes, kernel_size=1, stride=1, padding=0):
+    def __init__(self,
+                 in_planes,
+                 out_planes,
+                 kernel_size=1,
+                 stride=1,
+                 padding=0):
         super(Convkxk, self).__init__()
-        self.conv = nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride, padding=padding,
+        self.conv = nn.Conv2d(in_planes,
+                              out_planes,
+                              kernel_size=kernel_size,
+                              stride=stride,
+                              padding=padding,
                               bias=False)
         self.bn = nn.BatchNorm2d(out_planes)
         self.relu = nn.ReLU(inplace=True)
@@ -116,7 +135,6 @@ class Convkxk(nn.Module):
 
 
 class ResNet(nn.Module):
-
     def __init__(self, block, layers, num_classes=1000):
         super(ResNet, self).__init__()
         self.inplanes = 128
@@ -150,8 +168,11 @@ class ResNet(nn.Module):
         downsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes * block.expansion,
-                          kernel_size=1, stride=stride, bias=False),
+                nn.Conv2d(self.inplanes,
+                          planes * block.expansion,
+                          kernel_size=1,
+                          stride=stride,
+                          bias=False),
                 nn.BatchNorm2d(planes * block.expansion),
             )
 

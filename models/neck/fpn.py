@@ -1,7 +1,8 @@
-import torch
-import torch.nn as nn
 import math
+
+import torch.nn as nn
 import torch.nn.functional as F
+
 from ..utils import Conv_BN_ReLU
 
 
@@ -10,22 +11,50 @@ class FPN(nn.Module):
         super(FPN, self).__init__()
 
         # Top layer
-        self.toplayer_ = Conv_BN_ReLU(2048, 256, kernel_size=1, stride=1, padding=0)
+        self.toplayer_ = Conv_BN_ReLU(2048,
+                                      256,
+                                      kernel_size=1,
+                                      stride=1,
+                                      padding=0)
 
         # Smooth layers
-        self.smooth1_ = Conv_BN_ReLU(256, 256, kernel_size=3, stride=1, padding=1)
+        self.smooth1_ = Conv_BN_ReLU(256,
+                                     256,
+                                     kernel_size=3,
+                                     stride=1,
+                                     padding=1)
 
-        self.smooth2_ = Conv_BN_ReLU(256, 256, kernel_size=3, stride=1, padding=1)
+        self.smooth2_ = Conv_BN_ReLU(256,
+                                     256,
+                                     kernel_size=3,
+                                     stride=1,
+                                     padding=1)
 
-        self.smooth3_ = Conv_BN_ReLU(256, 256, kernel_size=3, stride=1, padding=1)
+        self.smooth3_ = Conv_BN_ReLU(256,
+                                     256,
+                                     kernel_size=3,
+                                     stride=1,
+                                     padding=1)
 
         # Lateral layers
-        self.latlayer1_ = Conv_BN_ReLU(1024, 256, kernel_size=1, stride=1, padding=0)
+        self.latlayer1_ = Conv_BN_ReLU(1024,
+                                       256,
+                                       kernel_size=1,
+                                       stride=1,
+                                       padding=0)
 
-        self.latlayer2_ = Conv_BN_ReLU(512, 256, kernel_size=1, stride=1, padding=0)
+        self.latlayer2_ = Conv_BN_ReLU(512,
+                                       256,
+                                       kernel_size=1,
+                                       stride=1,
+                                       padding=0)
 
-        self.latlayer3_ = Conv_BN_ReLU(256, 256, kernel_size=1, stride=1, padding=0)
-        
+        self.latlayer3_ = Conv_BN_ReLU(256,
+                                       256,
+                                       kernel_size=1,
+                                       stride=1,
+                                       padding=0)
+
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
