@@ -97,21 +97,20 @@ class ResultFormat(object):
             for line in lines:
                 f.write(line)
 
-
-def _write_result_msra(self, image_name, outputs):
-    bboxes = outputs['bboxes']
-
-    lines = []
-    for b_idx, bbox in enumerate(bboxes):
-        values = [int(v) for v in bbox]
-        line = '%d' % values[0]
-        for v_id in range(1, len(values)):
-            line += ', %d' % values[v_id]
-        line += '\n'
-        lines.append(line)
-
-    file_name = '%s.txt' % image_name
-    file_path = osp.join(self.result_path, file_name)
-    with open(file_path, 'w') as f:
-        for line in lines:
-            f.write(line)
+    def _write_result_msra(self, image_name, outputs):
+        bboxes = outputs['bboxes']
+    
+        lines = []
+        for b_idx, bbox in enumerate(bboxes):
+            values = [int(v) for v in bbox]
+            line = '%d' % values[0]
+            for v_id in range(1, len(values)):
+                line += ', %d' % values[v_id]
+            line += '\n'
+            lines.append(line)
+    
+        file_name = '%s.txt' % image_name
+        file_path = osp.join(self.result_path, file_name)
+        with open(file_path, 'w') as f:
+            for line in lines:
+                f.write(line)
