@@ -27,7 +27,7 @@
 | Method | Backbone | Finetune | Config | Precision (%) | Recall (%) | F-measure (%) | Model |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | PSENet | ResNet50 | N | [config](psenet_r50_ctw.py) | 82.6 | 76.4 | 79.4 | [Google Drive](https://drive.google.com/file/d/1AeUj_E6tKzo4uAvwNLQ98Tf2bmASxdv0/view?usp=sharing) |
-| PSENet (paper) | ResNet50 | N | - | 80.6 | 75.6 | 78 | - | 
+| PSENet (paper) | ResNet50 | N | - | 80.6 | 75.6 | 78.0 | - | 
 | PSENet | ResNet50 | Y | [config](psenet_r50_ctw_finetune.py) | 84.5 | 79.2 | 81.8 | [Google Drive](https://drive.google.com/file/d/1c0h6rzBB_T8eR_gt3xuvguEVJz2FVfNf/view?usp=sharing) |
 | PSENet (paper) | ResNet50 | Y | - | 84.8 | 79.7 | 82.2 | - | 
 
