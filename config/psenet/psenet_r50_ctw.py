@@ -54,5 +54,5 @@ test_cfg = dict(
     min_area=16,
     kernel_num=7,
     bbox_type='poly',
-    result_path='outputs/submit_ctw.zip'
+    result_path='outputs/submit_ctw/'
 )
