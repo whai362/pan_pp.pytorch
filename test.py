@@ -42,9 +42,8 @@ def test(test_loader, model, cfg):
                             total_time=AverageMeter(500))
 
     for idx, data in enumerate(test_loader):
-        print('Testing %d/%d' % (idx, len(test_loader)))
-        sys.stdout.flush()
-
+        print('Testing %d/%d\r' % (idx, len(test_loader)), flush=True, end='')
+    
         # prepare input
         data['imgs'] = data['imgs'].cuda()
         data.update(dict(cfg=cfg))
