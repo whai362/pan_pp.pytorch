@@ -84,7 +84,7 @@ class PAN_PP_DetHead(nn.Module):
 
         if cfg.report_speed:
             torch.cuda.synchronize()
-            results['det_pa_time'] = time.time() - start
+            results['det_post_time'] = time.time() - start
 
         # image size
         org_img_size = img_meta['org_img_size'][0]

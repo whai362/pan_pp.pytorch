@@ -52,7 +52,6 @@ class PSENet(nn.Module):
             start = time.time()
 
         # detection
-
         det_out = self.det_head(f)
 
         if not self.training and cfg.report_speed:

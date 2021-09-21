@@ -42,5 +42,9 @@
 | PSENet | ResNet50 | Y | S: 1024 | [config](psenet_r50_ic15_1024_finetune.py) | 86.2 | 79.4 | 82.7 | [Google Drive](https://drive.google.com/file/d/1TENl7ng_m12SRm8TVQYfTTYqU-M33HiC/view?usp=sharing) |
 | PSENet (paper) | ResNet50 | Y | L: 2240 | - | 86.9 | 84.5 | 85.7 | - |
 
+- SynthText
 
+| Method | Backbone |            Config             |                            Model                             |
+| :----: | :------: | :---------------------------: | :----------------------------------------------------------: |
+| PSENet | ResNet50 | [config](psenet_r50_synth.py) | [Google Drive](https://drive.google.com/file/d/1blFDPLzV2NT4guYl-Jsm3zufcA96tRP1/view?usp=sharing) |
 

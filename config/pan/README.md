@@ -51,3 +51,10 @@ When migrating it to Python 3.6 and Pytorch 1.1.0, we make the following two cha
 | PAN (paper) | ResNet18 | N | 80.7 | 77.3 | 78.9 | - |
 | PAN | ResNet18 | Y | 85.7 | 83.4 | 84.5 | [Google Drive](https://drive.google.com/file/d/1csNqq__MqAwug5XRC3L40fh5urLaL0IZ/view?usp=sharing) |
 | PAN (paper) | ResNet18 | Y | 84.4 | 83.8 | 84.1 | - |
+
+- SynthText
+
+| Method | Backbone |           Config           |                            Model                             |
+| :----: | :------: | :------------------------: | :----------------------------------------------------------: |
+|  PAN   | ResNet18 | [config](pan_r18_synth.py) | [Google Drive](https://drive.google.com/file/d/1TpNg7CQKH1Lh4k9mmDDIzds3WBVDIbu8/view?usp=sharing) |
+

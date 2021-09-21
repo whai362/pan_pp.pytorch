@@ -76,7 +76,7 @@ class PSENet_Head(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(det_pse_time=time.time() - start))
+            outputs.update(dict(det_post_time=time.time() - start))
 
         scale = (float(org_img_size[1]) / float(img_size[1]),
                  float(org_img_size[0]) / float(img_size[0]))

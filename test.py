@@ -68,7 +68,7 @@ def test(test_loader, model, cfg):
         speed_meters = dict(backbone_time=AverageMeter(500),
                             neck_time=AverageMeter(500),
                             det_head_time=AverageMeter(500),
-                            det_pa_time=AverageMeter(500),
+                            det_post_time=AverageMeter(500),
                             rec_time=AverageMeter(500),
                             total_time=AverageMeter(500))
 
