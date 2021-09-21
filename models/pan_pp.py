@@ -1,22 +1,17 @@
-import torch
-import torch.nn as nn
-import math
-import torch.nn.functional as F
-import numpy as np
 import time
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 from .backbone import build_backbone
-from .neck import build_neck
 from .head import build_head
+from .neck import build_neck
 from .utils import Conv_BN_ReLU
 
 
 class PAN_PP(nn.Module):
-    def __init__(self,
-                 backbone,
-                 neck,
-                 detection_head,
-                 recognition_head=None):
+    def __init__(self, backbone, neck, detection_head, recognition_head=None):
         super(PAN_PP, self).__init__()
         self.backbone = build_backbone(backbone)
 
@@ -60,9 +55,7 @@ class PAN_PP(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                backbone_time=time.time() - start
-            ))
+            outputs.update(dict(backbone_time=time.time() - start))
             start = time.time()
 
         # reduce channel
@@ -83,9 +76,7 @@ class PAN_PP(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                neck_time=time.time() - start
-            ))
+            outputs.update(dict(neck_time=time.time() - start))
             start = time.time()
 
         # detection
@@ -93,14 +84,14 @@ class PAN_PP(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                det_head_time=time.time() - start
-            ))
+            outputs.update(dict(det_head_time=time.time() - start))
             start = time.time()
 
         if self.training:
             det_out = self._upsample(det_out, imgs.size())
-            loss_det = self.det_head.loss(det_out, gt_texts, gt_kernels, training_masks, gt_instances, gt_bboxes)
+            loss_det = self.det_head.loss(det_out, gt_texts, gt_kernels,
+                                          training_masks, gt_instances,
+                                          gt_bboxes)
             outputs.update(loss_det)
         else:
             det_out = self._upsample(det_out, imgs.size(), cfg.test_cfg.scale)
@@ -116,23 +107,29 @@ class PAN_PP(nn.Module):
                         gt_bboxes, gt_words, word_masks)
                 else:
                     x_crops, gt_words = self.rec_head.extract_feature(
-                        f, (imgs.size(2), imgs.size(3)), gt_instances * training_masks, gt_bboxes, gt_words, word_masks)
+                        f, (imgs.size(2), imgs.size(3)),
+                        gt_instances * training_masks, gt_bboxes, gt_words,
+                        word_masks)
 
                 if x_crops is not None:
                     out_rec = self.rec_head(x_crops, gt_words)
-                    loss_rec = self.rec_head.loss(out_rec, gt_words, reduce=False)
+                    loss_rec = self.rec_head.loss(out_rec,
+                                                  gt_words,
+                                                  reduce=False)
                 else:
                     loss_rec = {
-                        'loss_rec': f.new_full((1,), -1, dtype=torch.float32),
-                        'acc_rec': f.new_full((1,), -1, dtype=torch.float32)
+                        'loss_rec': f.new_full((1, ), -1, dtype=torch.float32),
+                        'acc_rec': f.new_full((1, ), -1, dtype=torch.float32)
                     }
                 outputs.update(loss_rec)
             else:
                 if len(det_res['bboxes']) > 0:
                     x_crops, _ = self.rec_head.extract_feature(
                         f, (imgs.size(2), imgs.size(3)),
-                        f.new_tensor(det_res['label'], dtype=torch.long).unsqueeze(0),
-                        bboxes=f.new_tensor(det_res['bboxes_h'], dtype=torch.long),
+                        f.new_tensor(det_res['label'],
+                                     dtype=torch.long).unsqueeze(0),
+                        bboxes=f.new_tensor(det_res['bboxes_h'],
+                                            dtype=torch.long),
                         unique_labels=det_res['instances'])
                     words, word_scores = self.rec_head.forward(x_crops)
                 else:
@@ -141,13 +138,8 @@ class PAN_PP(nn.Module):
 
                 if cfg.report_speed:
                     torch.cuda.synchronize()
-                    outputs.update(dict(
-                        rec_time=time.time() - start
-                    ))
-                outputs.update(dict(
-                    words=words,
-                    word_scores=word_scores,
-                    label=''
-                ))
+                    outputs.update(dict(rec_time=time.time() - start))
+                outputs.update(
+                    dict(words=words, word_scores=word_scores, label=''))
 
         return outputs

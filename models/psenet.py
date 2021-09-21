@@ -1,21 +1,16 @@
-import torch
-import torch.nn as nn
-import math
-import torch.nn.functional as F
-import numpy as np
 import time
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 from .backbone import build_backbone
-from .neck import build_neck
 from .head import build_head
-from .utils import Conv_BN_ReLU
+from .neck import build_neck
 
 
 class PSENet(nn.Module):
-    def __init__(self,
-                 backbone,
-                 neck,
-                 detection_head):
+    def __init__(self, backbone, neck, detection_head):
         super(PSENet, self).__init__()
         self.backbone = build_backbone(backbone)
         self.fpn = build_neck(neck)
@@ -43,9 +38,7 @@ class PSENet(nn.Module):
         f = self.backbone(imgs)
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                backbone_time=time.time() - start
-            ))
+            outputs.update(dict(backbone_time=time.time() - start))
             start = time.time()
 
         # FPN
@@ -55,9 +48,7 @@ class PSENet(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                neck_time=time.time() - start
-            ))
+            outputs.update(dict(neck_time=time.time() - start))
             start = time.time()
 
         # detection
@@ -66,13 +57,12 @@ class PSENet(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                det_head_time=time.time() - start
-            ))
+            outputs.update(dict(det_head_time=time.time() - start))
 
         if self.training:
             det_out = self._upsample(det_out, imgs.size())
-            det_loss = self.det_head.loss(det_out, gt_texts, gt_kernels, training_masks)
+            det_loss = self.det_head.loss(det_out, gt_texts, gt_kernels,
+                                          training_masks)
             outputs.update(det_loss)
         else:
             det_out = self._upsample(det_out, imgs.size(), 1)

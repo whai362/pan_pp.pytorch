@@ -1,12 +1,21 @@
-import torch
-import torch.nn as nn
 import math
+
+import torch.nn as nn
 
 
 class Conv_BN_ReLU(nn.Module):
-    def __init__(self, in_planes, out_planes, kernel_size=1, stride=1, padding=0):
+    def __init__(self,
+                 in_planes,
+                 out_planes,
+                 kernel_size=1,
+                 stride=1,
+                 padding=0):
         super(Conv_BN_ReLU, self).__init__()
-        self.conv = nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride, padding=padding,
+        self.conv = nn.Conv2d(in_planes,
+                              out_planes,
+                              kernel_size=kernel_size,
+                              stride=stride,
+                              padding=padding,
                               bias=False)
         self.bn = nn.BatchNorm2d(out_planes)
         self.relu = nn.ReLU(inplace=True)

@@ -1,5 +1,6 @@
 import heapq
 
+
 class TopK(object):
     def __init__(self, k):
         self.k = k

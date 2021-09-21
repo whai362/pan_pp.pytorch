@@ -46,7 +46,7 @@ data = dict(
 train_cfg = dict(
     lr=1e-3,
     schedule=(200, 400,),
-    epoch=520,
+    epoch=600,
     optimizer='SGD',
     pretrain='checkpoints/psenet_r50_synth/checkpoint.pth.tar'
 )
@@ -55,5 +55,5 @@ test_cfg = dict(
     min_area=16,
     kernel_num=7,
     bbox_type='poly',
-    result_path='outputs/submit_ctw.zip'
+    result_path='outputs/submit_ctw/'
 )

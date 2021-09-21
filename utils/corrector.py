@@ -1,6 +1,7 @@
 import editdistance
 import mmcv
 
+
 class Corrector:
     def __init__(self,
                  data_type,
@@ -23,14 +24,15 @@ class Corrector:
     def process(self, outputs):
         words = outputs['words']
         word_scores = outputs['word_scores']
-        words = [self.correct(word, score, self.voc) for word, score in zip(words, word_scores)]
-        outputs.update(dict(
-            words=words
-        ))
+        words = [
+            self.correct(word, score, self.voc)
+            for word, score in zip(words, word_scores)
+        ]
+        outputs.update(dict(words=words))
         return outputs
 
     def correct(self, word, score, voc=None):
-        EPS = 1e-6
+        # EPS = 1e-6
         if len(word) < self.len_thres:
             return None
         if score > self.score_thres:

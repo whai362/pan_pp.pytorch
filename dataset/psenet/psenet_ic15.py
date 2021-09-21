@@ -1,22 +1,23 @@
+import math
+import random
+
+import cv2
+import mmcv
 import numpy as np
+import Polygon as plg
+import pyclipper
+import torch
+import torchvision.transforms as transforms
 from PIL import Image
 from torch.utils import data
-import cv2
-import random
-import torchvision.transforms as transforms
-import torch
-import pyclipper
-import Polygon as plg
-import math
-import mmcv
-import string
 
 ic15_root_dir = './data/ICDAR2015/Challenge4/'
 ic15_train_data_dir = ic15_root_dir + 'ch4_training_images/'
-ic15_train_gt_dir = ic15_root_dir + 'ch4_training_localization_transcription_gt/'
-
+ic15_train_gt_dir = ic15_root_dir + \
+                    'ch4_training_localization_transcription_gt/'
 ic15_test_data_dir = ic15_root_dir + 'ch4_test_images/'
-ic15_test_gt_dir = ic15_root_dir + 'ch4_test_localization_transcription_gt/'
+ic15_test_gt_dir = ic15_root_dir + \
+                   'ch4_test_localization_transcription_gt/'
 
 
 def get_img(img_path, read_type='pil'):
@@ -26,7 +27,7 @@ def get_img(img_path, read_type='pil'):
             img = img[:, :, [2, 1, 0]]
         elif read_type == 'pil':
             img = np.array(Image.open(img_path))
-    except Exception as e:
+    except Exception:
         print('Cannot read image: %s.' % img_path)
         raise
     return img
@@ -53,7 +54,8 @@ def shrink(bboxes, rate, max_shr=20):
         try:
             pco = pyclipper.PyclipperOffset()
             pco.AddPath(bbox, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
-            offset = min(int(area * (1 - rate) / (peri + 0.001) + 0.5), max_shr)
+            offset = min(int(area * (1 - rate) / (peri + 0.001) + 0.5),
+                         max_shr)
 
             shrinked_bbox = pco.Execute(-offset)
             if len(shrinked_bbox) == 0:
@@ -66,7 +68,7 @@ def shrink(bboxes, rate, max_shr=20):
                 continue
 
             shrinked_bboxes.append(shrinked_bbox)
-        except Exception as e:
+        except Exception:
             print('area:', area, 'peri:', peri)
             shrinked_bboxes.append(bbox)
 
@@ -107,7 +109,9 @@ def random_rotate(imgs):
         img = imgs[i]
         w, h = img.shape[:2]
         rotation_matrix = cv2.getRotationMatrix2D((h / 2, w / 2), angle, 1)
-        img_rotation = cv2.warpAffine(img, rotation_matrix, (h, w), flags=cv2.INTER_NEAREST)
+        img_rotation = cv2.warpAffine(img,
+                                      rotation_matrix, (h, w),
+                                      flags=cv2.INTER_NEAREST)
         imgs[i] = img_rotation
     return imgs
 
@@ -183,11 +187,23 @@ def random_crop_padding(imgs, target_size):
         if len(imgs[idx].shape) == 3:
             s3_length = int(imgs[idx].shape[-1])
             img = imgs[idx][i:i + t_h, j:j + t_w, :]
-            img_p = cv2.copyMakeBorder(img, 0, p_h - t_h, 0, p_w - t_w, borderType=cv2.BORDER_CONSTANT,
-                                       value=tuple(0 for i in range(s3_length)))
+            img_p = cv2.copyMakeBorder(img,
+                                       0,
+                                       p_h - t_h,
+                                       0,
+                                       p_w - t_w,
+                                       borderType=cv2.BORDER_CONSTANT,
+                                       value=tuple(0
+                                                   for i in range(s3_length)))
         else:
             img = imgs[idx][i:i + t_h, j:j + t_w]
-            img_p = cv2.copyMakeBorder(img, 0, p_h - t_h, 0, p_w - t_w, borderType=cv2.BORDER_CONSTANT, value=(0,))
+            img_p = cv2.copyMakeBorder(img,
+                                       0,
+                                       p_h - t_h,
+                                       0,
+                                       p_w - t_w,
+                                       borderType=cv2.BORDER_CONSTANT,
+                                       value=(0, ))
         n_imgs.append(img_p)
     return n_imgs
 
@@ -206,7 +222,9 @@ class PSENET_IC15(data.Dataset):
         self.split = split
         self.is_transform = is_transform
 
-        self.img_size = img_size if (img_size is None or isinstance(img_size, tuple)) else (img_size, img_size)
+        self.img_size = img_size if (
+            img_size is None or isinstance(img_size, tuple)) else (img_size,
+                                                                   img_size)
         self.short_size = short_size
         self.with_rec = with_rec
         self.kernel_num = kernel_num
@@ -227,8 +245,12 @@ class PSENET_IC15(data.Dataset):
         self.gt_paths = []
 
         for data_dir, gt_dir in zip(data_dirs, gt_dirs):
-            img_names = [img_name for img_name in mmcv.utils.scandir(data_dir, '.jpg')]
-            img_names.extend([img_name for img_name in mmcv.utils.scandir(data_dir, '.png')])
+            img_names = [
+                img_name for img_name in mmcv.utils.scandir(data_dir, '.jpg')
+            ]
+            img_names.extend([
+                img_name for img_name in mmcv.utils.scandir(data_dir, '.png')
+            ])
 
             img_paths = []
             gt_paths = []
@@ -246,7 +268,8 @@ class PSENET_IC15(data.Dataset):
         # sample for speed test
         if report_speed:
             target_size = 3000
-            extend_scale = (target_size + len(self.img_paths) - 1) // len(self.img_paths)
+            extend_scale = (target_size + len(self.img_paths) - 1) // len(
+                self.img_paths)
             self.img_paths = (self.img_paths * extend_scale)[:target_size]
             self.gt_paths = (self.gt_paths * extend_scale)[:target_size]
 
@@ -287,7 +310,8 @@ class PSENET_IC15(data.Dataset):
             gt_kernel = np.zeros(img.shape[0:2], dtype='uint8')
             kernel_bboxes = shrink(bboxes, rate)
             for i in range(bboxes.shape[0]):
-                cv2.drawContours(gt_kernel, [kernel_bboxes[i].astype(int)], -1, 1, -1)
+                cv2.drawContours(gt_kernel, [kernel_bboxes[i].astype(int)], -1,
+                                 1, -1)
             gt_kernels.append(gt_kernel)
 
         if self.is_transform:
@@ -298,7 +322,8 @@ class PSENET_IC15(data.Dataset):
                 imgs = random_horizontal_flip(imgs)
             imgs = random_rotate(imgs)
             imgs = random_crop_padding(imgs, self.img_size)
-            img, gt_instance, training_mask, gt_kernels = imgs[0], imgs[1], imgs[2], imgs[3:]
+            img, gt_instance, training_mask, gt_kernels = imgs[0], imgs[
+                1], imgs[2], imgs[3:]
 
         gt_text = gt_instance.copy()
         gt_text[gt_text > 0] = 1
@@ -307,10 +332,12 @@ class PSENET_IC15(data.Dataset):
         img = Image.fromarray(img)
         img = img.convert('RGB')
         if self.is_transform:
-            img = transforms.ColorJitter(brightness=32.0 / 255, saturation=0.5)(img)
+            img = transforms.ColorJitter(brightness=32.0 / 255,
+                                         saturation=0.5)(img)
 
         img = transforms.ToTensor()(img)
-        img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img)
+        img = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                   std=[0.229, 0.224, 0.225])(img)
         gt_text = torch.from_numpy(gt_text).long()
         gt_kernels = torch.from_numpy(gt_kernels).long()
         training_mask = torch.from_numpy(training_mask).long()
@@ -328,24 +355,18 @@ class PSENET_IC15(data.Dataset):
         img_path = self.img_paths[index]
 
         img = get_img(img_path, self.read_type)
-        img_meta = dict(
-            org_img_size=np.array(img.shape[:2])
-        )
+        img_meta = dict(org_img_size=np.array(img.shape[:2]))
 
         img = scale_aligned_short(img, self.short_size)
-        img_meta.update(dict(
-            img_size=np.array(img.shape[:2])
-        ))
+        img_meta.update(dict(img_size=np.array(img.shape[:2])))
 
         img = Image.fromarray(img)
         img = img.convert('RGB')
         img = transforms.ToTensor()(img)
-        img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img)
+        img = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                   std=[0.229, 0.224, 0.225])(img)
 
-        data = dict(
-            imgs=img,
-            img_metas=img_meta
-        )
+        data = dict(imgs=img, img_metas=img_meta)
 
         return data
 

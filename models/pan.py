@@ -1,21 +1,17 @@
-import torch
-import torch.nn as nn
-import math
-import torch.nn.functional as F
-import numpy as np
 import time
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 from .backbone import build_backbone
-from .neck import build_neck
 from .head import build_head
+from .neck import build_neck
 from .utils import Conv_BN_ReLU
 
 
 class PAN(nn.Module):
-    def __init__(self,
-                 backbone,
-                 neck,
-                 detection_head):
+    def __init__(self, backbone, neck, detection_head):
         super(PAN, self).__init__()
         self.backbone = build_backbone(backbone)
 
@@ -54,9 +50,7 @@ class PAN(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                backbone_time=time.time() - start
-            ))
+            outputs.update(dict(backbone_time=time.time() - start))
             start = time.time()
 
         # reduce channel
@@ -81,9 +75,7 @@ class PAN(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                neck_time=time.time() - start
-            ))
+            outputs.update(dict(neck_time=time.time() - start))
             start = time.time()
 
         # detection
@@ -91,13 +83,13 @@ class PAN(nn.Module):
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                det_head_time=time.time() - start
-            ))
+            outputs.update(dict(det_head_time=time.time() - start))
 
         if self.training:
             det_out = self._upsample(det_out, imgs.size())
-            det_loss = self.det_head.loss(det_out, gt_texts, gt_kernels, training_masks, gt_instances, gt_bboxes)
+            det_loss = self.det_head.loss(det_out, gt_texts, gt_kernels,
+                                          training_masks, gt_instances,
+                                          gt_bboxes)
             outputs.update(det_loss)
         else:
             det_out = self._upsample(det_out, imgs.size(), 4)

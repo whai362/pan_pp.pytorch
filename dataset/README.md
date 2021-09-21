@@ -57,4 +57,3 @@ These datasets can be downloaded from the following links:
 - ICDAR2017-MLT [[dataset]](https://rrc.cvc.uab.es/?ch=8&com=downloads)
 
 - COCO-Text [[dataset]](https://rrc.cvc.uab.es/?ch=5&com=downloads)
-

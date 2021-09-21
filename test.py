@@ -1,18 +1,48 @@
-import torch
-import numpy as np
 import argparse
+import json
 import os
 import os.path as osp
 import sys
-import time
-import json
+
+import torch
 from mmcv import Config
 
 from dataset import build_data_loader
 from models import build_model
 from models.utils import fuse_module
-from utils import ResultFormat, AverageMeter, Corrector
+from utils import AverageMeter, Corrector, ResultFormat
 
+
+def model_structure(model):
+    blank = ' '
+    print('-' * 90)
+    print('|' + ' ' * 11 + 'weight name' + ' ' * 10 + '|' \
+          + ' ' * 15 + 'weight shape' + ' ' * 15 + '|' \
+          + ' ' * 3 + 'number' + ' ' * 3 + '|')
+    print('-' * 90)
+    num_para = 0
+    type_size = 1  ##如果是浮点数就是4
+
+    for index, (key, w_variable) in enumerate(model.named_parameters()):
+        if len(key) <= 30:
+            key = key + (30 - len(key)) * blank
+        shape = str(w_variable.shape)
+        if len(shape) <= 40:
+            shape = shape + (40 - len(shape)) * blank
+        each_para = 1
+        for k in w_variable.shape:
+            each_para *= k
+        num_para += each_para
+        str_num = str(each_para)
+        if len(str_num) <= 10:
+            str_num = str_num + (10 - len(str_num)) * blank
+
+        print('| {} | {} | {} |'.format(key, shape, str_num))
+    print('-' * 90)
+    print('The total number of parameters: ' + str(num_para))
+    print('The parameters of Model {}: {:4f}M'.format(model._get_name(), num_para * type_size / 1000 / 1000))
+    print('-' * 90)
+    
 
 def report_speed(outputs, speed_meters):
     total_time = 0
@@ -35,24 +65,19 @@ def test(test_loader, model, cfg):
     rf = ResultFormat(cfg.data.test.type, cfg.test_cfg.result_path)
 
     if cfg.report_speed:
-        speed_meters = dict(
-            backbone_time=AverageMeter(500),
-            neck_time=AverageMeter(500),
-            det_head_time=AverageMeter(500),
-            det_pa_time=AverageMeter(500),
-            rec_time=AverageMeter(500),
-            total_time=AverageMeter(500)
-        )
+        speed_meters = dict(backbone_time=AverageMeter(500),
+                            neck_time=AverageMeter(500),
+                            det_head_time=AverageMeter(500),
+                            det_pa_time=AverageMeter(500),
+                            rec_time=AverageMeter(500),
+                            total_time=AverageMeter(500))
 
     for idx, data in enumerate(test_loader):
-        print('Testing %d/%d' % (idx, len(test_loader)))
-        sys.stdout.flush()
-
+        print('Testing %d/%d\r' % (idx, len(test_loader)), flush=True, end='')
+    
         # prepare input
         data['imgs'] = data['imgs'].cuda()
-        data.update(dict(
-            cfg=cfg
-        ))
+        data.update(dict(cfg=cfg))
 
         # forward
         with torch.no_grad():
@@ -65,16 +90,15 @@ def test(test_loader, model, cfg):
             outputs = pp.process(outputs)
 
         # save result
-        image_name, _ = osp.splitext(osp.basename(test_loader.dataset.img_paths[idx]))
+        image_name, _ = osp.splitext(
+            osp.basename(test_loader.dataset.img_paths[idx]))
         rf.write_result(image_name, outputs)
 
 
 def main(args):
     cfg = Config.fromfile(args.config)
     for d in [cfg, cfg.data.test]:
-        d.update(dict(
-            report_speed=args.report_speed
-        ))
+        d.update(dict(report_speed=args.report_speed))
     print(json.dumps(cfg._cfg_dict, indent=4))
     sys.stdout.flush()
 
@@ -88,17 +112,19 @@ def main(args):
     )
     # model
     if hasattr(cfg.model, 'recognition_head'):
-        cfg.model.recognition_head.update(dict(
-            voc=data_loader.voc,
-            char2id=data_loader.char2id,
-            id2char=data_loader.id2char,
-        ))
+        cfg.model.recognition_head.update(
+            dict(
+                voc=data_loader.voc,
+                char2id=data_loader.char2id,
+                id2char=data_loader.id2char,
+            ))
     model = build_model(cfg.model)
     model = model.cuda()
 
     if args.checkpoint is not None:
         if os.path.isfile(args.checkpoint):
-            print("Loading model and optimizer from checkpoint '{}'".format(args.checkpoint))
+            print("Loading model and optimizer from checkpoint '{}'".format(
+                args.checkpoint))
             sys.stdout.flush()
 
             checkpoint = torch.load(args.checkpoint)
@@ -114,7 +140,7 @@ def main(args):
 
     # fuse conv and bn
     model = fuse_module(model)
-
+    model_structure(model)
     # test
     test(test_loader, model, cfg)
 

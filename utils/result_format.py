@@ -28,7 +28,8 @@ class ResultFormat(object):
             self._write_result_msra(img_name, outputs)
 
     def _write_result_ic15(self, img_name, outputs):
-        assert self.result_path.endswith('.zip'), 'Error: ic15 result should be a zip file!'
+        assert self.result_path.endswith(
+            '.zip'), 'Error: ic15 result should be a zip file!'
 
         tmp_folder = self.result_path.replace('.zip', '')
 
@@ -41,10 +42,11 @@ class ResultFormat(object):
         for i, bbox in enumerate(bboxes):
             values = [int(v) for v in bbox]
             if words is None:
-                line = "%d,%d,%d,%d,%d,%d,%d,%d\n" % tuple(values)
+                line = '%d,%d,%d,%d,%d,%d,%d,%d\n' % tuple(values)
                 lines.append(line)
             elif words[i] is not None:
-                line = "%d,%d,%d,%d,%d,%d,%d,%d" % tuple(values) + ",%s\n" % words[i]
+                line = '%d,%d,%d,%d,%d,%d,%d,%d' % tuple(
+                    values) + ',%s\n' % words[i]
                 lines.append(line)
 
         file_name = 'res_%s.txt' % img_name
@@ -64,9 +66,9 @@ class ResultFormat(object):
         for i, bbox in enumerate(bboxes):
             bbox = bbox.reshape(-1, 2)[:, ::-1].reshape(-1)
             values = [int(v) for v in bbox]
-            line = "%d" % values[0]
+            line = '%d' % values[0]
             for v_id in range(1, len(values)):
-                line += ",%d" % values[v_id]
+                line += ',%d' % values[v_id]
             line += '\n'
             lines.append(line)
 
@@ -83,37 +85,30 @@ class ResultFormat(object):
         for i, bbox in enumerate(bboxes):
             bbox = bbox.reshape(-1, 2)[:, ::-1].reshape(-1)
             values = [int(v) for v in bbox]
-            line = "%d" % values[0]
+            line = '%d' % values[0]
             for v_id in range(1, len(values)):
-                line += ",%d" % values[v_id]
+                line += ',%d' % values[v_id]
             line += '\n'
             lines.append(line)
 
-        tmp_folder = self.result_path.replace('.zip', '')
-
         file_name = '%s.txt' % image_name
-        file_path = osp.join(tmp_folder, file_name)
+        file_path = osp.join(self.result_path, file_name)
         with open(file_path, 'w') as f:
             for line in lines:
                 f.write(line)
 
-        z = zipfile.ZipFile(self.result_path, 'a', zipfile.ZIP_DEFLATED)
-        z.write(file_path, file_name)
-        z.close()
-
-
-def _write_result_msra(self, image_name, outputs):
+    def _write_result_msra(self, image_name, outputs):
         bboxes = outputs['bboxes']
-
+    
         lines = []
         for b_idx, bbox in enumerate(bboxes):
             values = [int(v) for v in bbox]
-            line = "%d" % values[0]
+            line = '%d' % values[0]
             for v_id in range(1, len(values)):
-                line += ", %d" % values[v_id]
+                line += ', %d' % values[v_id]
             line += '\n'
             lines.append(line)
-
+    
         file_name = '%s.txt' % image_name
         file_path = osp.join(self.result_path, file_name)
         with open(file_path, 'w') as f:

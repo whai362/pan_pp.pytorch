@@ -648,7 +648,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "numpy/ufuncobject.h"
 
     /* NumPy API declarations from "numpy/__init__.pxd" */
-    
+
 #include "ios"
 #include "new"
 #include "stdexcept"
@@ -664,7 +664,7 @@ static CYTHON_INLINE float __PYX_NAN() {
     }
 
     #endif
-    
+
 #include <queue>
 #ifdef _OPENMP
 #include <omp.h>
@@ -939,7 +939,7 @@ typedef struct {
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":689
  * # in Cython to enable them only on the right systems.
- * 
+ *
  * ctypedef npy_int8       int8_t             # <<<<<<<<<<<<<<
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t
@@ -947,7 +947,7 @@ typedef struct {
 typedef npy_int8 __pyx_t_5numpy_int8_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":690
- * 
+ *
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t             # <<<<<<<<<<<<<<
  * ctypedef npy_int32      int32_t
@@ -975,7 +975,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":696
  * #ctypedef npy_int128     int128_t
- * 
+ *
  * ctypedef npy_uint8      uint8_t             # <<<<<<<<<<<<<<
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t
@@ -983,7 +983,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
 typedef npy_uint8 __pyx_t_5numpy_uint8_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":697
- * 
+ *
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t             # <<<<<<<<<<<<<<
  * ctypedef npy_uint32     uint32_t
@@ -1011,7 +1011,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":703
  * #ctypedef npy_uint128    uint128_t
- * 
+ *
  * ctypedef npy_float32    float32_t             # <<<<<<<<<<<<<<
  * ctypedef npy_float64    float64_t
  * #ctypedef npy_float80    float80_t
@@ -1019,7 +1019,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 typedef npy_float32 __pyx_t_5numpy_float32_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":704
- * 
+ *
  * ctypedef npy_float32    float32_t
  * ctypedef npy_float64    float64_t             # <<<<<<<<<<<<<<
  * #ctypedef npy_float80    float80_t
@@ -1041,7 +1041,7 @@ typedef npy_long __pyx_t_5numpy_int_t;
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t             # <<<<<<<<<<<<<<
  * ctypedef npy_longlong   longlong_t
- * 
+ *
  */
 typedef npy_longlong __pyx_t_5numpy_long_t;
 
@@ -1049,14 +1049,14 @@ typedef npy_longlong __pyx_t_5numpy_long_t;
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t
  * ctypedef npy_longlong   longlong_t             # <<<<<<<<<<<<<<
- * 
+ *
  * ctypedef npy_ulong      uint_t
  */
 typedef npy_longlong __pyx_t_5numpy_longlong_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":717
  * ctypedef npy_longlong   longlong_t
- * 
+ *
  * ctypedef npy_ulong      uint_t             # <<<<<<<<<<<<<<
  * ctypedef npy_ulonglong  ulong_t
  * ctypedef npy_ulonglong  ulonglong_t
@@ -1064,11 +1064,11 @@ typedef npy_longlong __pyx_t_5numpy_longlong_t;
 typedef npy_ulong __pyx_t_5numpy_uint_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":718
- * 
+ *
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t             # <<<<<<<<<<<<<<
  * ctypedef npy_ulonglong  ulonglong_t
- * 
+ *
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
 
@@ -1076,32 +1076,32 @@ typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t
  * ctypedef npy_ulonglong  ulonglong_t             # <<<<<<<<<<<<<<
- * 
+ *
  * ctypedef npy_intp       intp_t
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":721
  * ctypedef npy_ulonglong  ulonglong_t
- * 
+ *
  * ctypedef npy_intp       intp_t             # <<<<<<<<<<<<<<
  * ctypedef npy_uintp      uintp_t
- * 
+ *
  */
 typedef npy_intp __pyx_t_5numpy_intp_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":722
- * 
+ *
  * ctypedef npy_intp       intp_t
  * ctypedef npy_uintp      uintp_t             # <<<<<<<<<<<<<<
- * 
+ *
  * ctypedef npy_double     float_t
  */
 typedef npy_uintp __pyx_t_5numpy_uintp_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":724
  * ctypedef npy_uintp      uintp_t
- * 
+ *
  * ctypedef npy_double     float_t             # <<<<<<<<<<<<<<
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t
@@ -1109,11 +1109,11 @@ typedef npy_uintp __pyx_t_5numpy_uintp_t;
 typedef npy_double __pyx_t_5numpy_float_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":725
- * 
+ *
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t             # <<<<<<<<<<<<<<
  * ctypedef npy_longdouble longdouble_t
- * 
+ *
  */
 typedef npy_double __pyx_t_5numpy_double_t;
 
@@ -1121,7 +1121,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t             # <<<<<<<<<<<<<<
- * 
+ *
  * ctypedef npy_cfloat      cfloat_t
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
@@ -1154,7 +1154,7 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":728
  * ctypedef npy_longdouble longdouble_t
- * 
+ *
  * ctypedef npy_cfloat      cfloat_t             # <<<<<<<<<<<<<<
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t
@@ -1162,11 +1162,11 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":729
- * 
+ *
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t             # <<<<<<<<<<<<<<
  * ctypedef npy_clongdouble clongdouble_t
- * 
+ *
  */
 typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
 
@@ -1174,16 +1174,16 @@ typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t             # <<<<<<<<<<<<<<
- * 
+ *
  * ctypedef npy_cdouble     complex_t
  */
 typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":732
  * ctypedef npy_clongdouble clongdouble_t
- * 
+ *
  * ctypedef npy_cdouble     complex_t             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object PyArray_MultiIterNew1(a):
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
@@ -1989,7 +1989,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                                          float min_area=0):
  *     cdef np.ndarray[np.int32_t, ndim=2] pred
  *     pred = np.zeros((label.shape[0], label.shape[1]), dtype=np.int32)             # <<<<<<<<<<<<<<
- * 
+ *
  *     for label_idx in range(1, label_num):
  */
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
@@ -2053,7 +2053,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
 
   /* "pse.pyx":21
  *     pred = np.zeros((label.shape[0], label.shape[1]), dtype=np.int32)
- * 
+ *
  *     for label_idx in range(1, label_num):             # <<<<<<<<<<<<<<
  *         if np.sum(label == label_idx) < min_area:
  *             label[label == label_idx] = 0
@@ -2064,11 +2064,11 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
     __pyx_v_label_idx = __pyx_t_12;
 
     /* "pse.pyx":22
- * 
+ *
  *     for label_idx in range(1, label_num):
  *         if np.sum(label == label_idx) < min_area:             # <<<<<<<<<<<<<<
  *             label[label == label_idx] = 0
- * 
+ *
  */
     __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -2108,7 +2108,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *     for label_idx in range(1, label_num):
  *         if np.sum(label == label_idx) < min_area:
  *             label[label == label_idx] = 0             # <<<<<<<<<<<<<<
- * 
+ *
  *     cdef libcpp.queue.queue[libcpp.pair.pair[np.int16_t,np.int16_t]] que = \
  */
       __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v_label_idx); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
@@ -2119,17 +2119,17 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
       /* "pse.pyx":22
- * 
+ *
  *     for label_idx in range(1, label_num):
  *         if np.sum(label == label_idx) < min_area:             # <<<<<<<<<<<<<<
  *             label[label == label_idx] = 0
- * 
+ *
  */
     }
   }
 
   /* "pse.pyx":26
- * 
+ *
  *     cdef libcpp.queue.queue[libcpp.pair.pair[np.int16_t,np.int16_t]] que = \
  *         queue[libcpp.pair.pair[np.int16_t,np.int16_t]]()             # <<<<<<<<<<<<<<
  *     cdef libcpp.queue.queue[libcpp.pair.pair[np.int16_t,np.int16_t]] nxt_que = \
@@ -2176,7 +2176,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *     cdef np.int16_t* dx = [-1, 1, 0, 0]
  *     cdef np.int16_t* dy = [0, 0, -1, 1]             # <<<<<<<<<<<<<<
  *     cdef np.int16_t tmpx, tmpy
- * 
+ *
  */
   __pyx_t_16[0] = 0;
   __pyx_t_16[1] = 0;
@@ -2186,7 +2186,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
 
   /* "pse.pyx":33
  *     cdef np.int16_t tmpx, tmpy
- * 
+ *
  *     points = np.array(np.where(label > 0)).transpose((1, 0))             # <<<<<<<<<<<<<<
  *     for point_idx in range(points.shape[0]):
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
@@ -2256,7 +2256,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
   __pyx_t_3 = 0;
 
   /* "pse.pyx":34
- * 
+ *
  *     points = np.array(np.where(label > 0)).transpose((1, 0))
  *     for point_idx in range(points.shape[0]):             # <<<<<<<<<<<<<<
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
@@ -2354,7 +2354,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
  *         que.push(pair[np.int16_t,np.int16_t](tmpx, tmpy))             # <<<<<<<<<<<<<<
  *         pred[tmpx, tmpy] = label[tmpx, tmpy]
- * 
+ *
  */
     try {
       __pyx_t_23 = std::pair<__pyx_t_5numpy_int16_t,__pyx_t_5numpy_int16_t> (__pyx_v_tmpx, __pyx_v_tmpy);
@@ -2368,7 +2368,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
  *         que.push(pair[np.int16_t,np.int16_t](tmpx, tmpy))
  *         pred[tmpx, tmpy] = label[tmpx, tmpy]             # <<<<<<<<<<<<<<
- * 
+ *
  *     cdef libcpp.pair.pair[np.int16_t,np.int16_t] cur
  */
     __pyx_t_24 = __pyx_v_tmpx;
@@ -2378,7 +2378,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
     *__Pyx_BufPtrStrided2d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_pred.rcbuffer->pybuffer.buf, __pyx_t_26, __pyx_pybuffernd_pred.diminfo[0].strides, __pyx_t_27, __pyx_pybuffernd_pred.diminfo[1].strides) = (*__Pyx_BufPtrStrided2d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_label.rcbuffer->pybuffer.buf, __pyx_t_24, __pyx_pybuffernd_label.diminfo[0].strides, __pyx_t_25, __pyx_pybuffernd_label.diminfo[1].strides));
 
     /* "pse.pyx":34
- * 
+ *
  *     points = np.array(np.where(label > 0)).transpose((1, 0))
  *     for point_idx in range(points.shape[0]):             # <<<<<<<<<<<<<<
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
@@ -2422,7 +2422,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *             cur = que.front()
  *             que.pop()             # <<<<<<<<<<<<<<
  *             cur_label = pred[cur.first, cur.second]
- * 
+ *
  */
       __pyx_v_que.pop();
 
@@ -2430,7 +2430,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *             cur = que.front()
  *             que.pop()
  *             cur_label = pred[cur.first, cur.second]             # <<<<<<<<<<<<<<
- * 
+ *
  *             is_edge = True
  */
       __pyx_t_25 = __pyx_v_cur.first;
@@ -2439,7 +2439,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
 
       /* "pse.pyx":47
  *             cur_label = pred[cur.first, cur.second]
- * 
+ *
  *             is_edge = True             # <<<<<<<<<<<<<<
  *             for j in range(4):
  *                 tmpx = cur.first + dx[j]
@@ -2447,7 +2447,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
       __pyx_v_is_edge = 1;
 
       /* "pse.pyx":48
- * 
+ *
  *             is_edge = True
  *             for j in range(4):             # <<<<<<<<<<<<<<
  *                 tmpx = cur.first + dx[j]
@@ -2527,7 +2527,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                     continue
  *                 if kernels[kernel_idx, tmpx, tmpy] == 0 or pred[tmpx, tmpy] > 0:             # <<<<<<<<<<<<<<
  *                     continue
- * 
+ *
  */
         __pyx_t_24 = __pyx_v_kernel_idx;
         __pyx_t_25 = __pyx_v_tmpx;
@@ -2549,7 +2549,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                     continue
  *                 if kernels[kernel_idx, tmpx, tmpy] == 0 or pred[tmpx, tmpy] > 0:
  *                     continue             # <<<<<<<<<<<<<<
- * 
+ *
  *                 que.push(pair[np.int16_t,np.int16_t](tmpx, tmpy))
  */
           goto __pyx_L12_continue;
@@ -2559,13 +2559,13 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                     continue
  *                 if kernels[kernel_idx, tmpx, tmpy] == 0 or pred[tmpx, tmpy] > 0:             # <<<<<<<<<<<<<<
  *                     continue
- * 
+ *
  */
         }
 
         /* "pse.pyx":56
  *                     continue
- * 
+ *
  *                 que.push(pair[np.int16_t,np.int16_t](tmpx, tmpy))             # <<<<<<<<<<<<<<
  *                 pred[tmpx, tmpy] = cur_label
  *                 is_edge = False
@@ -2579,7 +2579,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
         __pyx_v_que.push(__pyx_t_23);
 
         /* "pse.pyx":57
- * 
+ *
  *                 que.push(pair[np.int16_t,np.int16_t](tmpx, tmpy))
  *                 pred[tmpx, tmpy] = cur_label             # <<<<<<<<<<<<<<
  *                 is_edge = False
@@ -2605,7 +2605,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                 is_edge = False
  *             if is_edge:             # <<<<<<<<<<<<<<
  *                 nxt_que.push(cur)
- * 
+ *
  */
       __pyx_t_13 = (__pyx_v_is_edge != 0);
       if (__pyx_t_13) {
@@ -2614,7 +2614,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                 is_edge = False
  *             if is_edge:
  *                 nxt_que.push(cur)             # <<<<<<<<<<<<<<
- * 
+ *
  *         que, nxt_que = nxt_que, que
  */
         __pyx_v_nxt_que.push(__pyx_v_cur);
@@ -2624,16 +2624,16 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
  *                 is_edge = False
  *             if is_edge:             # <<<<<<<<<<<<<<
  *                 nxt_que.push(cur)
- * 
+ *
  */
       }
     }
 
     /* "pse.pyx":62
  *                 nxt_que.push(cur)
- * 
+ *
  *         que, nxt_que = nxt_que, que             # <<<<<<<<<<<<<<
- * 
+ *
  *     return pred
  */
     __pyx_t_14 = __pyx_v_nxt_que;
@@ -2644,9 +2644,9 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
 
   /* "pse.pyx":64
  *         que, nxt_que = nxt_que, que
- * 
+ *
  *     return pred             # <<<<<<<<<<<<<<
- * 
+ *
  * def pse(kernels, min_area):
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
@@ -2697,7 +2697,7 @@ static PyArrayObject *__pyx_f_3pse__pse(PyArrayObject *__pyx_v_kernels, PyArrayO
 
 /* "pse.pyx":66
  *     return pred
- * 
+ *
  * def pse(kernels, min_area):             # <<<<<<<<<<<<<<
  *     kernel_num = kernels.shape[0]
  *     label_num, label = cv2.connectedComponents(kernels[-1], connectivity=4)
@@ -2789,7 +2789,7 @@ static PyObject *__pyx_pf_3pse_pse(CYTHON_UNUSED PyObject *__pyx_self, PyObject 
   __Pyx_RefNannySetupContext("pse", 0);
 
   /* "pse.pyx":67
- * 
+ *
  * def pse(kernels, min_area):
  *     kernel_num = kernels.shape[0]             # <<<<<<<<<<<<<<
  *     label_num, label = cv2.connectedComponents(kernels[-1], connectivity=4)
@@ -2839,11 +2839,11 @@ static PyObject *__pyx_pf_3pse_pse(CYTHON_UNUSED PyObject *__pyx_self, PyObject 
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0);
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1);
     } else {
-      __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 0);
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 1);
     }
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_3);
@@ -2904,7 +2904,7 @@ static PyObject *__pyx_pf_3pse_pse(CYTHON_UNUSED PyObject *__pyx_self, PyObject 
 
   /* "pse.pyx":66
  *     return pred
- * 
+ *
  * def pse(kernels, min_area):             # <<<<<<<<<<<<<<
  *     kernel_num = kernels.shape[0]
  *     label_num, label = cv2.connectedComponents(kernels[-1], connectivity=4)
@@ -2929,10 +2929,10 @@ static PyObject *__pyx_pf_3pse_pse(CYTHON_UNUSED PyObject *__pyx_self, PyObject 
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":734
  * ctypedef npy_cdouble     complex_t
- * 
+ *
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(1, <void*>a)
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__pyx_v_a) {
@@ -2945,10 +2945,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew1", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":735
- * 
+ *
  * cdef inline object PyArray_MultiIterNew1(a):
  *     return PyArray_MultiIterNew(1, <void*>a)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object PyArray_MultiIterNew2(a, b):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -2960,10 +2960,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":734
  * ctypedef npy_cdouble     complex_t
- * 
+ *
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(1, <void*>a)
- * 
+ *
  */
 
   /* function exit code */
@@ -2979,10 +2979,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":737
  *     return PyArray_MultiIterNew(1, <void*>a)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__pyx_v_a, PyObject *__pyx_v_b) {
@@ -2995,10 +2995,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew2", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":738
- * 
+ *
  * cdef inline object PyArray_MultiIterNew2(a, b):
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3010,10 +3010,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":737
  *     return PyArray_MultiIterNew(1, <void*>a)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
- * 
+ *
  */
 
   /* function exit code */
@@ -3029,10 +3029,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":740
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_c) {
@@ -3045,10 +3045,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew3", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":741
- * 
+ *
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3060,10 +3060,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":740
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
- * 
+ *
  */
 
   /* function exit code */
@@ -3079,10 +3079,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":743
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_c, PyObject *__pyx_v_d) {
@@ -3095,10 +3095,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew4", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":744
- * 
+ *
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3110,10 +3110,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":743
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
- * 
+ *
  */
 
   /* function exit code */
@@ -3129,10 +3129,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":746
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_c, PyObject *__pyx_v_d, PyObject *__pyx_v_e) {
@@ -3145,10 +3145,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew5", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":747
- * 
+ *
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3160,10 +3160,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":746
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
- * 
+ *
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
- * 
+ *
  */
 
   /* function exit code */
@@ -3179,7 +3179,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":749
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
- * 
+ *
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
  *     if PyDataType_HASSUBARRAY(d):
  *         return <tuple>d.subarray.shape
@@ -3192,7 +3192,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   __Pyx_RefNannySetupContext("PyDataType_SHAPE", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":750
- * 
+ *
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
  *         return <tuple>d.subarray.shape
@@ -3214,7 +3214,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     goto __pyx_L0;
 
     /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":750
- * 
+ *
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
  *         return <tuple>d.subarray.shape
@@ -3226,8 +3226,8 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
  *         return <tuple>d.subarray.shape
  *     else:
  *         return ()             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
@@ -3238,7 +3238,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":749
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
- * 
+ *
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
  *     if PyDataType_HASSUBARRAY(d):
  *         return <tuple>d.subarray.shape
@@ -3253,7 +3253,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":868
  *     int _import_umath() except -1
- * 
+ *
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)
@@ -3264,11 +3264,11 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannySetupContext("set_array_base", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":869
- * 
+ *
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!             # <<<<<<<<<<<<<<
  *     PyArray_SetBaseObject(arr, base)
- * 
+ *
  */
   Py_INCREF(__pyx_v_base);
 
@@ -3276,14 +3276,14 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline object get_array_base(ndarray arr):
  */
   (void)(PyArray_SetBaseObject(__pyx_v_arr, __pyx_v_base));
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":868
  *     int _import_umath() except -1
- * 
+ *
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)
@@ -3295,7 +3295,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":872
  *     PyArray_SetBaseObject(arr, base)
- * 
+ *
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
  *     base = PyArray_BASE(arr)
  *     if base is NULL:
@@ -3309,7 +3309,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __Pyx_RefNannySetupContext("get_array_base", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":873
- * 
+ *
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)             # <<<<<<<<<<<<<<
  *     if base is NULL:
@@ -3332,7 +3332,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  *     if base is NULL:
  *         return None             # <<<<<<<<<<<<<<
  *     return <object>base
- * 
+ *
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
@@ -3351,7 +3351,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  *     if base is NULL:
  *         return None
  *     return <object>base             # <<<<<<<<<<<<<<
- * 
+ *
  * # Versions of the import_* functions which are more suitable for
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3361,7 +3361,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":872
  *     PyArray_SetBaseObject(arr, base)
- * 
+ *
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
  *     base = PyArray_BASE(arr)
  *     if base is NULL:
@@ -3442,7 +3442,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  *         __pyx_import_array()
  *     except Exception:             # <<<<<<<<<<<<<<
  *         raise ImportError("numpy.core.multiarray failed to import")
- * 
+ *
  */
     __pyx_t_4 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
     if (__pyx_t_4) {
@@ -3456,7 +3456,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline int import_umath() except -1:
  */
       __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 884, __pyx_L5_except_error)
@@ -3508,7 +3508,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":886
  *         raise ImportError("numpy.core.multiarray failed to import")
- * 
+ *
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
  *     try:
  *         _import_umath()
@@ -3531,7 +3531,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   __Pyx_RefNannySetupContext("import_umath", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":887
- * 
+ *
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3556,7 +3556,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 888, __pyx_L3_error)
 
       /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":887
- * 
+ *
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3574,7 +3574,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
  *         raise ImportError("numpy.core.umath failed to import")
- * 
+ *
  */
     __pyx_t_4 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
     if (__pyx_t_4) {
@@ -3588,7 +3588,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline int import_ufunc() except -1:
  */
       __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 890, __pyx_L5_except_error)
@@ -3601,7 +3601,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L5_except_error:;
 
     /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":887
- * 
+ *
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3617,7 +3617,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":886
  *         raise ImportError("numpy.core.multiarray failed to import")
- * 
+ *
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
  *     try:
  *         _import_umath()
@@ -3640,7 +3640,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
 
 /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":892
  *         raise ImportError("numpy.core.umath failed to import")
- * 
+ *
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
  *     try:
  *         _import_umath()
@@ -3663,7 +3663,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   __Pyx_RefNannySetupContext("import_ufunc", 0);
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":893
- * 
+ *
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3688,7 +3688,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 894, __pyx_L3_error)
 
       /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":893
- * 
+ *
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3706,7 +3706,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
  *         raise ImportError("numpy.core.umath failed to import")
- * 
+ *
  */
     __pyx_t_4 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
     if (__pyx_t_4) {
@@ -3720,7 +3720,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef extern from *:
  */
       __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 896, __pyx_L5_except_error)
@@ -3733,7 +3733,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L5_except_error:;
 
     /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":893
- * 
+ *
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
  *         _import_umath()
@@ -3749,7 +3749,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":892
  *         raise ImportError("numpy.core.umath failed to import")
- * 
+ *
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
  *     try:
  *         _import_umath()
@@ -3861,7 +3861,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "pse.pyx":33
  *     cdef np.int16_t tmpx, tmpy
- * 
+ *
  *     points = np.array(np.where(label > 0)).transpose((1, 0))             # <<<<<<<<<<<<<<
  *     for point_idx in range(points.shape[0]):
  *         tmpx, tmpy = points[point_idx, 0], points[point_idx, 1]
@@ -3883,7 +3883,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline int import_umath() except -1:
  */
   __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 884, __pyx_L1_error)
@@ -3894,7 +3894,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef inline int import_ufunc() except -1:
  */
   __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 890, __pyx_L1_error)
@@ -3903,7 +3903,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "pse.pyx":66
  *     return pred
- * 
+ *
  * def pse(kernels, min_area):             # <<<<<<<<<<<<<<
  *     kernel_num = kernels.shape[0]
  *     label_num, label = cv2.connectedComponents(kernels[-1], connectivity=4)
@@ -3980,7 +3980,7 @@ static int __Pyx_modinit_type_import_code(void) {
   /*--- Type import code ---*/
   __pyx_t_1 = PyImport_ImportModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__pyx_t_1, __Pyx_BUILTIN_MODULE_NAME, "type", 
+  __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__pyx_t_1, __Pyx_BUILTIN_MODULE_NAME, "type",
   #if defined(PYPY_VERSION_NUM) && PYPY_VERSION_NUM < 0x050B0000
   sizeof(PyTypeObject),
   #else
@@ -4251,7 +4251,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pse.pyx":66
  *     return pred
- * 
+ *
  * def pse(kernels, min_area):             # <<<<<<<<<<<<<<
  *     kernel_num = kernels.shape[0]
  *     label_num, label = cv2.connectedComponents(kernels[-1], connectivity=4)
@@ -4273,7 +4273,7 @@ if (!__Pyx_RefNanny) {
 
   /* "../../../../../../share/spring/conda_envs/miniconda3/envs/s0.3.2/lib/python3.6/site-packages/numpy/__init__.pxd":892
  *         raise ImportError("numpy.core.umath failed to import")
- * 
+ *
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
  *     try:
  *         _import_umath()

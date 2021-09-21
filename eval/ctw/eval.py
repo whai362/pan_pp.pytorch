@@ -1,7 +1,6 @@
 import file_util
 import Polygon as plg
 import numpy as np
-import mmcv
 
 project_root = '../../'
 

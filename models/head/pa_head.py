@@ -1,28 +1,32 @@
+import math
+import time
+
+import cv2
+import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import math
-import numpy as np
-import cv2
-import time
-from ..loss import build_loss, ohem_batch, iou
+
+from ..loss import build_loss, iou, ohem_batch
 from ..post_processing import pa
 
 
 class PA_Head(nn.Module):
-    def __init__(self,
-                 in_channels,
-                 hidden_dim,
-                 num_classes,
-                 loss_text,
-                 loss_kernel,
-                 loss_emb):
+    def __init__(self, in_channels, hidden_dim, num_classes, loss_text,
+                 loss_kernel, loss_emb):
         super(PA_Head, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels, hidden_dim, kernel_size=3, stride=1, padding=1)
+        self.conv1 = nn.Conv2d(in_channels,
+                               hidden_dim,
+                               kernel_size=3,
+                               stride=1,
+                               padding=1)
         self.bn1 = nn.BatchNorm2d(hidden_dim)
         self.relu1 = nn.ReLU(inplace=True)
 
-        self.conv2 = nn.Conv2d(hidden_dim, num_classes, kernel_size=1, stride=1, padding=0)
+        self.conv2 = nn.Conv2d(hidden_dim,
+                               num_classes,
+                               kernel_size=1,
+                               stride=1,
+                               padding=0)
 
         self.text_loss = build_loss(loss_text)
         self.kernel_loss = build_loss(loss_kernel)
@@ -69,14 +73,14 @@ class PA_Head(nn.Module):
         img_size = img_meta['img_size'][0]
 
         label_num = np.max(label) + 1
-        label = cv2.resize(label, (img_size[1], img_size[0]), interpolation=cv2.INTER_NEAREST)
-        score = cv2.resize(score, (img_size[1], img_size[0]), interpolation=cv2.INTER_NEAREST)
+        label = cv2.resize(label, (img_size[1], img_size[0]),
+                           interpolation=cv2.INTER_NEAREST)
+        score = cv2.resize(score, (img_size[1], img_size[0]),
+                           interpolation=cv2.INTER_NEAREST)
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
-            outputs.update(dict(
-                det_pa_time=time.time() - start
-            ))
+            outputs.update(dict(det_pa_time=time.time() - start))
 
         scale = (float(org_img_size[1]) / float(img_size[1]),
                  float(org_img_size[0]) / float(img_size[0]))
@@ -114,27 +118,23 @@ class PA_Head(nn.Module):
             elif cfg.test_cfg.bbox_type == 'poly':
                 binary = np.zeros(label.shape, dtype='uint8')
                 binary[ind] = 1
-                contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL,
+                                               cv2.CHAIN_APPROX_SIMPLE)
                 bbox = contours[0] * scale
 
             bbox = bbox.astype('int32')
             bboxes.append(bbox.reshape(-1))
             scores.append(score_i)
 
-        outputs.update(dict(
-            bboxes=bboxes,
-            scores=scores
-        ))
+        outputs.update(dict(bboxes=bboxes, scores=scores))
         if with_rec:
-            outputs.update(dict(
-                label=label,
-                bboxes_h=bboxes_h,
-                instances=instances
-            ))
+            outputs.update(
+                dict(label=label, bboxes_h=bboxes_h, instances=instances))
 
         return outputs
 
-    def loss(self, out, gt_texts, gt_kernels, training_masks, gt_instances, gt_bboxes):
+    def loss(self, out, gt_texts, gt_kernels, training_masks, gt_instances,
+             gt_bboxes):
         # output
         texts = out[:, 0, :, :]
         kernels = out[:, 1:2, :, :]
@@ -142,12 +142,15 @@ class PA_Head(nn.Module):
 
         # text loss
         selected_masks = ohem_batch(texts, gt_texts, training_masks)
-        loss_text = self.text_loss(texts, gt_texts, selected_masks, reduce=False)
-        iou_text = iou((texts > 0).long(), gt_texts, training_masks, reduce=False)
-        losses = dict(
-            loss_text=loss_text,
-            iou_text=iou_text
-        )
+        loss_text = self.text_loss(texts,
+                                   gt_texts,
+                                   selected_masks,
+                                   reduce=False)
+        iou_text = iou((texts > 0).long(),
+                       gt_texts,
+                       training_masks,
+                       reduce=False)
+        losses = dict(loss_text=loss_text, iou_text=iou_text)
 
         # kernel loss
         loss_kernels = []
@@ -155,20 +158,25 @@ class PA_Head(nn.Module):
         for i in range(kernels.size(1)):
             kernel_i = kernels[:, i, :, :]
             gt_kernel_i = gt_kernels[:, i, :, :]
-            loss_kernel_i = self.kernel_loss(kernel_i, gt_kernel_i, selected_masks, reduce=False)
+            loss_kernel_i = self.kernel_loss(kernel_i,
+                                             gt_kernel_i,
+                                             selected_masks,
+                                             reduce=False)
             loss_kernels.append(loss_kernel_i)
         loss_kernels = torch.mean(torch.stack(loss_kernels, dim=1), dim=1)
-        iou_kernel = iou(
-            (kernels[:, -1, :, :] > 0).long(), gt_kernels[:, -1, :, :], training_masks * gt_texts, reduce=False)
-        losses.update(dict(
-            loss_kernels=loss_kernels,
-            iou_kernel=iou_kernel
-        ))
+        iou_kernel = iou((kernels[:, -1, :, :] > 0).long(),
+                         gt_kernels[:, -1, :, :],
+                         training_masks * gt_texts,
+                         reduce=False)
+        losses.update(dict(loss_kernels=loss_kernels, iou_kernel=iou_kernel))
 
         # embedding loss
-        loss_emb = self.emb_loss(embs, gt_instances, gt_kernels[:, -1, :, :], training_masks, gt_bboxes, reduce=False)
-        losses.update(dict(
-            loss_emb=loss_emb
-        ))
+        loss_emb = self.emb_loss(embs,
+                                 gt_instances,
+                                 gt_kernels[:, -1, :, :],
+                                 training_masks,
+                                 gt_bboxes,
+                                 reduce=False)
+        losses.update(dict(loss_emb=loss_emb))
 
         return losses

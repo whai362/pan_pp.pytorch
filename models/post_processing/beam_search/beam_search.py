@@ -1,5 +1,7 @@
 import torch
+
 from .topk import TopK
+
 
 class BeamNode(object):
     def __init__(self, seq, state, score):
@@ -22,14 +24,10 @@ class BeamNode(object):
     def __eq__(self, other):
         return self.avg_score == other.avg_score
 
+
 class BeamSearch(object):
     """Class to generate sequences from an image-to-text model."""
-
-    def __init__(self,
-                 decode_step,
-                 eos,
-                 beam_size=2,
-                 max_seq_len=32):
+    def __init__(self, decode_step, eos, beam_size=2, max_seq_len=32):
         self.decode_step = decode_step
         self.eos = eos
         self.beam_size = beam_size
@@ -42,10 +40,13 @@ class BeamSearch(object):
         comp_seqs = [TopK(self.beam_size) for _ in range(batch_size)]
 
         # print(init_inputs.shape, init_states.shape)
-        words, scores, states = self.decode_step(init_inputs, init_states, k=self.beam_size)
+        words, scores, states = self.decode_step(init_inputs,
+                                                 init_states,
+                                                 k=self.beam_size)
         for batch_id in range(batch_size):
             for i in range(self.beam_size):
-                node = BeamNode([words[batch_id][i]], states[:, :, batch_id, :], scores[batch_id][i])
+                node = BeamNode([words[batch_id][i]],
+                                states[:, :, batch_id, :], scores[batch_id][i])
                 part_seqs[batch_id].push(node)
 
         for t in range(self.max_seq_len - 1):
@@ -64,7 +65,9 @@ class BeamSearch(object):
 
             inputs = torch.stack(inputs)
             states = torch.stack(states, dim=2)
-            words, scores, states = self.decode_step(inputs, states, k=self.beam_size + 1)
+            words, scores, states = self.decode_step(inputs,
+                                                     states,
+                                                     k=self.beam_size + 1)
 
             idx = 0
             for batch_id in range(batch_size):
@@ -91,5 +94,7 @@ class BeamSearch(object):
             if not comp_seqs[batch_id].size():
                 comp_seqs[batch_id] = part_seqs[batch_id]
         seqs = [seq_list.extract(sort=True)[0].seq for seq_list in comp_seqs]
-        seq_scores = [seq_list.extract(sort=True)[0].avg_score for seq_list in comp_seqs]
+        seq_scores = [
+            seq_list.extract(sort=True)[0].avg_score for seq_list in comp_seqs
+        ]
         return seqs, seq_scores

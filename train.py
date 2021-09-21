@@ -1,12 +1,13 @@
-import torch
-import numpy as np
-import random
 import argparse
+import json
 import os
 import os.path as osp
+import random
 import sys
 import time
-import json
+
+import numpy as np
+import torch
 from mmcv import Config
 
 from dataset import build_data_loader
@@ -54,9 +55,7 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
         adjust_learning_rate(optimizer, train_loader, epoch, iter, cfg)
 
         # prepare input
-        data.update(dict(
-            cfg=cfg
-        ))
+        data.update(dict(cfg=cfg))
 
         # forward
         outputs = model(**data)
@@ -106,35 +105,20 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
 
         # print log
         if iter % 20 == 0:
-            output_log = f'({iter + 1}/{len(train_loader)}) LR: {optimizer.param_groups[0]["lr"]:.6f} | ' \
-                         f'Batch: {batch_time.avg:.3f}s | Total: {batch_time.avg * iter / 60.0:.0f}min | ' \
-                         f'ETA: {batch_time.avg * (len(train_loader) - iter) / 60.0:.0f}min | ' \
-                         f'Loss: {losses.avg:.3f} | ' \
-                         f'Loss(text/kernel/emb{"/rec" if with_rec else ""}): {losses_text.avg:.3f}/{losses_kernels.avg:.3f}/' \
-                         f'{losses_emb.avg:.3f}{"/" + format(losses_rec.avg, ".3f") if with_rec else ""} | ' \
-                         f'IoU(text/kernel): {ious_text.avg:.3f}/{ious_kernel.avg:.3f}' \
-                         f'{" | ACC rec: " + format(accs_rec.avg, ".3f") if with_rec else ""}'
-
-            # output_log = '({batch}/{size}) LR: {lr:.6f} | Batch: {bt:.3f}s | Total: {total:.0f}min | ' \
-            #              'ETA: {eta:.0f}min | Loss: {loss:.3f} | ' \
-            #              'Loss(text/kernel/emb/rec): {loss_text:.3f}/{loss_kernel:.3f}/{loss_emb:.3f}/{loss_rec:.3f} ' \
-            #              '| IoU(text/kernel): {iou_text:.3f}/{iou_kernel:.3f} | Acc rec: {acc_rec:.3f}'.format(
-            #     batch=iter + 1,
-            #     size=len(train_loader),
-            #     lr=optimizer.param_groups[0]['lr'],
-            #     bt=batch_time.avg,
-            #     total=batch_time.avg * iter / 60.0,
-            #     eta=batch_time.avg * (len(train_loader) - iter) / 60.0,
-            #     loss_text=losses_text.avg,
-            #     loss_kernel=losses_kernels.avg,
-            #     loss_emb=losses_emb.avg,
-            #     loss_rec=losses_rec.avg,
-            #     loss=losses.avg,
-            #     iou_text=ious_text.avg,
-            #     iou_kernel=ious_kernel.avg,
-            #     acc_rec=accs_rec.avg,
-            # )
-            print(output_log)
+            length = len(train_loader)
+            log = f'({iter + 1}/{length}) ' \
+                  f'LR: {optimizer.param_groups[0]["lr"]:.6f} | ' \
+                  f'Batch: {batch_time.avg:.3f}s | ' \
+                  f'Total: {batch_time.avg * iter / 60.0:.0f}min | ' \
+                  f'ETA: {batch_time.avg * (length - iter) / 60.0:.0f}min | ' \
+                  f'Loss: {losses.avg:.3f} | ' \
+                  f'Loss(text/kernel/emb{"/rec" if with_rec else ""}): ' \
+                  f'{losses_text.avg:.3f}/{losses_kernels.avg:.3f}/' \
+                  f'{losses_emb.avg:.3f}' \
+                  f'{"/" + format(losses_rec.avg, ".3f") if with_rec else ""} | ' \
+                  f'IoU(text/kernel): {ious_text.avg:.3f}/{ious_kernel.avg:.3f}' \
+                  f'{" | ACC rec: " + format(accs_rec.avg, ".3f") if with_rec else ""}'
+            print(log)
             sys.stdout.flush()
 
 
@@ -145,7 +129,7 @@ def adjust_learning_rate(optimizer, dataloader, epoch, iter, cfg):
         assert schedule == 'polylr', 'Error: schedule should be polylr!'
         cur_iter = epoch * len(dataloader) + iter
         max_iter_num = cfg.train_cfg.epoch * len(dataloader)
-        lr = cfg.train_cfg.lr * (1 - float(cur_iter) / max_iter_num) ** 0.9
+        lr = cfg.train_cfg.lr * (1 - float(cur_iter) / max_iter_num)**0.9
     elif isinstance(schedule, tuple):
         lr = cfg.train_cfg.lr
         for i in range(len(schedule)):
@@ -162,7 +146,9 @@ def save_checkpoint(state, checkpoint_path, cfg):
     torch.save(state, file_path)
 
     if cfg.data.train.type in ['synth'] or \
-            (state['iter'] == 0 and state['epoch'] > cfg.train_cfg.epoch - 100 and state['epoch'] % 10 == 0):
+            (state['iter'] == 0 and
+             state['epoch'] > cfg.train_cfg.epoch - 100 and
+             state['epoch'] % 10 == 0):
         file_name = 'checkpoint_%dep.pth.tar' % state['epoch']
         file_path = osp.join(checkpoint_path, file_name)
         torch.save(state, file_path)
@@ -184,22 +170,21 @@ def main(args):
 
     # data loader
     data_loader = build_data_loader(cfg.data.train)
-    train_loader = torch.utils.data.DataLoader(
-        data_loader,
-        batch_size=cfg.data.batch_size,
-        shuffle=True,
-        num_workers=8,
-        drop_last=True,
-        pin_memory=True
-    )
+    train_loader = torch.utils.data.DataLoader(data_loader,
+                                               batch_size=cfg.data.batch_size,
+                                               shuffle=True,
+                                               num_workers=8,
+                                               drop_last=True,
+                                               pin_memory=True)
 
     # model
     if hasattr(cfg.model, 'recognition_head'):
-        cfg.model.recognition_head.update(dict(
-            voc=data_loader.voc,
-            char2id=data_loader.char2id,
-            id2char=data_loader.id2char,
-        ))
+        cfg.model.recognition_head.update(
+            dict(
+                voc=data_loader.voc,
+                char2id=data_loader.char2id,
+                id2char=data_loader.id2char,
+            ))
     model = build_model(cfg.model)
     model = torch.nn.DataParallel(model).cuda()
 
@@ -208,14 +193,19 @@ def main(args):
         optimizer = model.module.optimizer
     else:
         if cfg.train_cfg.optimizer == 'SGD':
-            optimizer = torch.optim.SGD(model.parameters(), lr=cfg.train_cfg.lr, momentum=0.99, weight_decay=5e-4)
+            optimizer = torch.optim.SGD(model.parameters(),
+                                        lr=cfg.train_cfg.lr,
+                                        momentum=0.99,
+                                        weight_decay=5e-4)
         elif cfg.train_cfg.optimizer == 'Adam':
-            optimizer = torch.optim.Adam(model.parameters(), lr=cfg.train_cfg.lr)
+            optimizer = torch.optim.Adam(model.parameters(),
+                                         lr=cfg.train_cfg.lr)
 
     start_epoch = 0
     start_iter = 0
     if hasattr(cfg.train_cfg, 'pretrain'):
-        assert osp.isfile(cfg.train_cfg.pretrain), 'Error: no pretrained weights found!'
+        assert osp.isfile(
+            cfg.train_cfg.pretrain), 'Error: no pretrained weights found!'
         print('Finetuning from pretrained model %s.' % cfg.train_cfg.pretrain)
         checkpoint = torch.load(cfg.train_cfg.pretrain)
         model.load_state_dict(checkpoint['state_dict'])
@@ -233,12 +223,10 @@ def main(args):
 
         train(train_loader, model, optimizer, epoch, start_iter, cfg)
 
-        state = dict(
-            epoch=epoch + 1,
-            iter=0,
-            state_dict=model.state_dict(),
-            optimizer=optimizer.state_dict()
-        )
+        state = dict(epoch=epoch + 1,
+                     iter=0,
+                     state_dict=model.state_dict(),
+                     optimizer=optimizer.state_dict())
         save_checkpoint(state, checkpoint_path, cfg)
 
 
