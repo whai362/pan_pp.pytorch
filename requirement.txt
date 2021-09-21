@@ -4,3 +4,5 @@ editdistance
 Polygon3
 pyclipper
 Cython
+scipy
+matplotlib
