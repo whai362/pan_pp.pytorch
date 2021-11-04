@@ -3,14 +3,14 @@
 - (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
 ## Introduction
-This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html) and [PAN++](https://arxiv.org/abs/2105.00405).
+This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html), [PAN++](https://arxiv.org/abs/2105.00405), and [FAST](https://arxiv.org/abs/2111.02394) [coming soon].
 
 <details open>
 <summary>Text Detection</summary>
 
 - [x] [PSENet (CVPR'2019)](config/psenet/)
 - [x] [PAN (ICCV'2019)](config/pan/)
-
+- [x] [FAST (Arxiv'2021)](config/fast/) [coming soon]
 </details>
 
 <details open>
@@ -117,6 +117,19 @@ Please cite the related works in your publications if it helps your research:
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
   year={2021},
   publisher={IEEE}
+}
+```
+
+### FAST
+
+```
+@misc{chen2021fast,
+  title={FAST: Searching for a Faster Arbitrarily-Shaped Text Detector with Minimalist Kernel Representation}, 
+  author={Zhe Chen and Wenhai Wang and Enze Xie and ZhiBo Yang and Tong Lu and Ping Luo},
+  year={2021},
+  eprint={2111.02394},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
 }
 ```
 
