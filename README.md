@@ -1,4 +1,5 @@
 ## News
+- (2022/04/22) Update PAN++ ICDAR 2015 joint training & post-processing with vocabulary & visualization code.
 - (2021/11/03) Paddle implementation of PAN, see [Paddle-PANet](https://github.com/simplify23/Paddle-PANet). Thanks @simplify23.
 - (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
