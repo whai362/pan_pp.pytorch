@@ -26,7 +26,7 @@
 
 | Method | Scale | Backbone | Training | Vocabulary | Precision (%) | Recall (%) | F-measure (%) | Config | Download |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| PAN++ | 736 | ResNet18 | N | Joint train | 83.6 | 54.0 | 65.6 | [config](pan_pp_r18_ic15_736_joint_train.py) | [model](https://drive.google.com/file/d/1HQ6LKVyuS5xcvU9IfdMJSC5ogCzCL4K6/view?usp=sharing) |
+| PAN++ | 736 | ResNet18 | Joint | N | 83.6 | 54.0 | 65.6 | [config](pan_pp_r18_ic15_736_joint_train.py) | [model](https://drive.google.com/file/d/1HQ6LKVyuS5xcvU9IfdMJSC5ogCzCL4K6/view?usp=sharing) |
 | PAN++ | 736 | ResNet18 | Joint | G | 82.3 | 55.8 | 66.5 | [config](pan_pp_r18_ic15_736_joint_train_voc_g.py) | [model](https://drive.google.com/file/d/1HQ6LKVyuS5xcvU9IfdMJSC5ogCzCL4K6/view?usp=sharing) |
 | PAN++ | 736 | ResNet18 | Joint | W | 90.1 | 63.9 | 74.8 | [config](pan_pp_r18_ic15_736_joint_train_voc_w.py) | [model](https://drive.google.com/file/d/1HQ6LKVyuS5xcvU9IfdMJSC5ogCzCL4K6/view?usp=sharing) |
 | PAN++ | 736 | ResNet18 | Joint | S | 92.2 | 70.3 | 79.8 | [config](pan_pp_r18_ic15_736_joint_train_voc_s.py) | [model](https://drive.google.com/file/d/1HQ6LKVyuS5xcvU9IfdMJSC5ogCzCL4K6/view?usp=sharing) |
