@@ -19,7 +19,7 @@ class PSENet(nn.Module):
 
     def _upsample(self, x, size, scale=1):
         _, _, H, W = size
-        return F.upsample(x, size=(H // scale, W // scale), mode='bilinear')
+        return F.interpolate(x, size=(H // scale, W // scale), mode='bilinear')
 
     def forward(self,
                 imgs,

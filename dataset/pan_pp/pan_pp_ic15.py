@@ -161,7 +161,7 @@ def random_crop_padding(imgs, target_size):
                                        0,
                                        p_w - t_w,
                                        borderType=cv2.BORDER_CONSTANT,
-                                       value=(0, ))
+                                       value=(0,))
         n_imgs.append(img_p)
     return n_imgs
 
@@ -263,8 +263,8 @@ class PAN_PP_IC15(data.Dataset):
         self.is_transform = is_transform
 
         self.img_size = img_size if (
-            img_size is None or isinstance(img_size, tuple)) else (img_size,
-                                                                   img_size)
+                img_size is None or isinstance(img_size, tuple)) else (img_size,
+                                                                       img_size)
         self.kernel_scale = kernel_scale
         self.short_size = short_size
         self.with_rec = with_rec
@@ -333,12 +333,12 @@ class PAN_PP_IC15(data.Dataset):
         gt_words = np.full((self.max_word_num + 1, self.max_word_len),
                            self.char2id['PAD'],
                            dtype=np.int32)
-        word_mask = np.zeros((self.max_word_num + 1, ), dtype=np.int32)
+        word_mask = np.zeros((self.max_word_num + 1,), dtype=np.int32)
         for i, word in enumerate(words):
             if word == '###':
                 continue
             word = word.lower()
-            gt_word = np.full((self.max_word_len, ),
+            gt_word = np.full((self.max_word_len,),
                               self.char2id['PAD'],
                               dtype=np.int)
             for j, char in enumerate(word):
@@ -437,9 +437,12 @@ class PAN_PP_IC15(data.Dataset):
 
     def prepare_test_data(self, index):
         img_path = self.img_paths[index]
+        img_meta = dict(
+            img_path=img_path,
+            img_name=img_path.split('/')[-1].split('.')[0])
 
         img = get_img(img_path, self.read_type)
-        img_meta = dict(org_img_size=np.array(img.shape[:2]))
+        img_meta.update(dict(org_img_size=np.array(img.shape[:2])))
 
         img = scale_aligned_short(img, self.short_size)
         img_meta.update(dict(img_size=np.array(img.shape[:2])))

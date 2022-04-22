@@ -17,7 +17,8 @@ class ResultFormat(object):
         if not osp.exists(result_path):
             os.makedirs(result_path)
 
-    def write_result(self, img_name, outputs):
+    def write_result(self, img_metas, outputs):
+        img_name = img_metas['img_name'][0]
         if 'IC15' in self.data_type:
             self._write_result_ic15(img_name, outputs)
         elif 'TT' in self.data_type:

@@ -6,3 +6,4 @@ pyclipper
 Cython
 scipy
 matplotlib
+pillow==8.3.0

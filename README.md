@@ -80,6 +80,17 @@ For example:
 python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar --report_speed
 ```
 
+### Visualization
+
+```shell script
+python test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} --vis
+```
+For example:
+```shell script
+python test.py config/pan/pan_r18_ic15.py checkpoints/pan_r18_ic15/checkpoint.pth.tar --vis
+```
+
+
 ## Citation
 
 Please cite the related works in your publications if it helps your research:

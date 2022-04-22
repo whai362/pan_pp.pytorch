@@ -65,11 +65,11 @@ class FPN(nn.Module):
 
     def _upsample(self, x, y, scale=1):
         _, _, H, W = y.size()
-        return F.upsample(x, size=(H // scale, W // scale), mode='bilinear')
+        return F.interpolate(x, size=(H // scale, W // scale), mode='bilinear')
 
     def _upsample_add(self, x, y):
         _, _, H, W = y.size()
-        return F.upsample(x, size=(H, W), mode='bilinear') + y
+        return F.interpolate(x, size=(H, W), mode='bilinear') + y
 
     def forward(self, f2, f3, f4, f5):
         p5 = self.toplayer_(f5)

@@ -45,7 +45,7 @@ class PAN_PP_RecHead(nn.Module):
                 m.bias.data.zero_()
 
     def _upsample(self, x, output_size):
-        return F.upsample(x, size=output_size, mode='bilinear')
+        return F.interpolate(x, size=output_size, mode='bilinear')
 
     def extract_feature(self,
                         f,

@@ -64,7 +64,7 @@ class FPEM_v1(nn.Module):
 
     def _upsample_add(self, x, y):
         _, _, H, W = y.size()
-        return F.upsample(x, size=(H, W), mode='bilinear') + y
+        return F.interpolate(x, size=(H, W), mode='bilinear') + y
 
     def forward(self, f1, f2, f3, f4):
         f3 = self.smooth_layer3_1(self.dwconv3_1(self._upsample_add(f4, f3)))

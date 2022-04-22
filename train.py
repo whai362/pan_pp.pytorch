@@ -45,7 +45,6 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
         # skip previous iterations
         if iter < start_iter:
             print('Skipping iter: %d' % iter)
-            sys.stdout.flush()
             continue
 
         # time cost of data loader
@@ -118,8 +117,7 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
                   f'{"/" + format(losses_rec.avg, ".3f") if with_rec else ""} | ' \
                   f'IoU(text/kernel): {ious_text.avg:.3f}/{ious_kernel.avg:.3f}' \
                   f'{" | ACC rec: " + format(accs_rec.avg, ".3f") if with_rec else ""}'
-            print(log)
-            sys.stdout.flush()
+            print(log, flush=True)
 
 
 def adjust_learning_rate(optimizer, dataloader, epoch, iter, cfg):
@@ -129,7 +127,7 @@ def adjust_learning_rate(optimizer, dataloader, epoch, iter, cfg):
         assert schedule == 'polylr', 'Error: schedule should be polylr!'
         cur_iter = epoch * len(dataloader) + iter
         max_iter_num = cfg.train_cfg.epoch * len(dataloader)
-        lr = cfg.train_cfg.lr * (1 - float(cur_iter) / max_iter_num)**0.9
+        lr = cfg.train_cfg.lr * (1 - float(cur_iter) / max_iter_num) ** 0.9
     elif isinstance(schedule, tuple):
         lr = cfg.train_cfg.lr
         for i in range(len(schedule)):
@@ -166,7 +164,6 @@ def main(args):
     if not osp.isdir(checkpoint_path):
         os.makedirs(checkpoint_path)
     print('Checkpoint path: %s.' % checkpoint_path)
-    sys.stdout.flush()
 
     # data loader
     data_loader = build_data_loader(cfg.data.train)

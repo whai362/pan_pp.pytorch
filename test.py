@@ -10,7 +10,7 @@ from mmcv import Config
 from dataset import build_data_loader
 from models import build_model
 from models.utils import fuse_module
-from utils import AverageMeter, Corrector, ResultFormat
+from utils import AverageMeter, Corrector, ResultFormat, Visualizer
 
 
 def model_structure(model):
@@ -21,7 +21,6 @@ def model_structure(model):
           + ' ' * 3 + 'number' + ' ' * 3 + '|')
     print('-' * 90)
     num_para = 0
-    type_size = 1  ##如果是浮点数就是4
 
     for index, (key, w_variable) in enumerate(model.named_parameters()):
         if len(key) <= 30:
@@ -40,9 +39,10 @@ def model_structure(model):
         print('| {} | {} | {} |'.format(key, shape, str_num))
     print('-' * 90)
     print('The total number of parameters: ' + str(num_para))
-    print('The parameters of Model {}: {:4f}M'.format(model._get_name(), num_para * type_size / 1000 / 1000))
+    print('The parameters of Model {}: {:4f}M'.format(
+        model._get_name(), num_para / 1e6))
     print('-' * 90)
-    
+
 
 def report_speed(outputs, speed_meters):
     total_time = 0
@@ -62,6 +62,10 @@ def test(test_loader, model, cfg):
     with_rec = hasattr(cfg.model, 'recognition_head')
     if with_rec:
         pp = Corrector(cfg.data.test.type, **cfg.test_cfg.rec_post_process)
+
+    if cfg.vis:
+        vis = Visualizer(vis_path=osp.join('vis/', cfg.data.test.type))
+
     rf = ResultFormat(cfg.data.test.type, cfg.test_cfg.result_path)
 
     if cfg.report_speed:
@@ -72,9 +76,10 @@ def test(test_loader, model, cfg):
                             rec_time=AverageMeter(500),
                             total_time=AverageMeter(500))
 
+    print('Start testing %d images' % len(test_loader))
     for idx, data in enumerate(test_loader):
-        print('Testing %d/%d\r' % (idx, len(test_loader)), flush=True, end='')
-    
+        print('Testing %d/%d\r' % (idx, len(test_loader)), end='', flush=True)
+
         # prepare input
         data['imgs'] = data['imgs'].cuda()
         data.update(dict(cfg=cfg))
@@ -87,20 +92,24 @@ def test(test_loader, model, cfg):
             report_speed(outputs, speed_meters)
         # post process of recognition
         if with_rec:
-            outputs = pp.process(outputs)
+            outputs = pp.process(data['img_metas'], outputs)
 
         # save result
-        image_name, _ = osp.splitext(
-            osp.basename(test_loader.dataset.img_paths[idx]))
-        rf.write_result(image_name, outputs)
+        rf.write_result(data['img_metas'], outputs)
+
+        # visualize
+        if cfg.vis:
+            vis.process(data['img_metas'], outputs)
+
+    print('Done!')
 
 
 def main(args):
     cfg = Config.fromfile(args.config)
     for d in [cfg, cfg.data.test]:
         d.update(dict(report_speed=args.report_speed))
+    cfg.update(dict(vis=args.vis))
     print(json.dumps(cfg._cfg_dict, indent=4))
-    sys.stdout.flush()
 
     # data loader
     data_loader = build_data_loader(cfg.data.test)
@@ -125,7 +134,6 @@ def main(args):
         if os.path.isfile(args.checkpoint):
             print("Loading model and optimizer from checkpoint '{}'".format(
                 args.checkpoint))
-            sys.stdout.flush()
 
             checkpoint = torch.load(args.checkpoint)
 
@@ -150,6 +158,7 @@ if __name__ == '__main__':
     parser.add_argument('config', help='config file path')
     parser.add_argument('checkpoint', nargs='?', type=str, default=None)
     parser.add_argument('--report_speed', action='store_true')
+    parser.add_argument('--vis', action='store_true')
     args = parser.parse_args()
 
     main(args)

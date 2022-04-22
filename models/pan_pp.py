@@ -31,7 +31,7 @@ class PAN_PP(nn.Module):
 
     def _upsample(self, x, size, scale=1):
         _, _, H, W = size
-        return F.upsample(x, size=(H // scale, W // scale), mode='bilinear')
+        return F.interpolate(x, size=(H // scale, W // scale), mode='bilinear')
 
     def forward(self,
                 imgs,
@@ -89,9 +89,9 @@ class PAN_PP(nn.Module):
 
         if self.training:
             det_out = self._upsample(det_out, imgs.size())
-            loss_det = self.det_head.loss(det_out, gt_texts, gt_kernels,
-                                          training_masks, gt_instances,
-                                          gt_bboxes)
+            loss_det = self.det_head.loss(
+                det_out, gt_texts, gt_kernels, training_masks,
+                gt_instances, gt_bboxes)
             outputs.update(loss_det)
         else:
             det_out = self._upsample(det_out, imgs.size(), cfg.test_cfg.scale)
@@ -100,26 +100,19 @@ class PAN_PP(nn.Module):
 
         if self.rec_head is not None:
             if self.training:
-                if cfg.train_cfg.use_ex:
-                    x_crops, gt_words = self.rec_head.extract_feature(
-                        f, (imgs.size(2), imgs.size(3)),
-                        gt_instances * gt_kernels[:, 0] * training_masks,
-                        gt_bboxes, gt_words, word_masks)
-                else:
-                    x_crops, gt_words = self.rec_head.extract_feature(
-                        f, (imgs.size(2), imgs.size(3)),
-                        gt_instances * training_masks, gt_bboxes, gt_words,
-                        word_masks)
+                x_crops, gt_words = self.rec_head.extract_feature(
+                    f, (imgs.size(2), imgs.size(3)),
+                    gt_instances * training_masks, gt_bboxes, gt_words,
+                    word_masks)
 
                 if x_crops is not None:
                     out_rec = self.rec_head(x_crops, gt_words)
-                    loss_rec = self.rec_head.loss(out_rec,
-                                                  gt_words,
-                                                  reduce=False)
+                    loss_rec = self.rec_head.loss(
+                        out_rec, gt_words, reduce=False)
                 else:
                     loss_rec = {
-                        'loss_rec': f.new_full((1, ), -1, dtype=torch.float32),
-                        'acc_rec': f.new_full((1, ), -1, dtype=torch.float32)
+                        'loss_rec': f.new_full((1,), -1, dtype=torch.float32),
+                        'acc_rec': f.new_full((1,), -1, dtype=torch.float32)
                     }
                 outputs.update(loss_rec)
             else:

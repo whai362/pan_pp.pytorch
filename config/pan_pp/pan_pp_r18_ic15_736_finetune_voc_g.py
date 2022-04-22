@@ -38,16 +38,16 @@ model = dict(
 )
 data = dict(
     batch_size=16,
-    train=dict(
-        type='PAN_PP_JointTrain',
-        split='train',
-        is_transform=True,
-        img_size=736,
-        short_size=736,
-        kernel_scale=0.5,
-        read_type='pil',
-        with_rec=True
-    ),
+    # train=dict(
+    #     type='PAN_PP_Joint_Train',
+    #     split='train',
+    #     is_transform=True,
+    #     img_size=736,
+    #     short_size=736,
+    #     kernel_scale=0.5,
+    #     read_type='pil',
+    #     with_rec=True
+    # ),
     test=dict(
         type='PAN_PP_IC15',
         split='test',
@@ -56,13 +56,12 @@ data = dict(
         with_rec=True
     )
 )
-train_cfg = dict(
-    lr=1e-3,
-    schedule='polylr',
-    epoch=3,
-    optimizer='Adam',
-    use_ex=False,
-)
+# train_cfg = dict(
+#     lr=1e-3,
+#     schedule='polylr',
+#     epoch=3,
+#     optimizer='Adam'
+# )
 test_cfg = dict(
     min_score=0.8,
     min_area=260,
@@ -74,8 +73,9 @@ test_cfg = dict(
         len_thres=3,
         score_thres=0.95,
         unalpha_score_thres=0.9,
-        ignore_score_thres=0.93,
-        editDist_thres=2,
-        voc_path=None #'./data/ICDAR2015/Challenge4/GenericVocabulary.txt'
-    ),
+        ignore_score_thres=0.85,
+        edit_dist_thres=2,
+        voc_type='g',
+        voc_path='./data/ICDAR2015/Challenge4/GenericVocabulary.txt'
+    )
 )
