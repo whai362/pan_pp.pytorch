@@ -69,12 +69,13 @@ def test(test_loader, model, cfg):
     rf = ResultFormat(cfg.data.test.type, cfg.test_cfg.result_path)
 
     if cfg.report_speed:
-        speed_meters = dict(backbone_time=AverageMeter(500),
-                            neck_time=AverageMeter(500),
-                            det_head_time=AverageMeter(500),
-                            det_post_time=AverageMeter(500),
-                            rec_time=AverageMeter(500),
-                            total_time=AverageMeter(500))
+        speed_meters = dict(
+            backbone_time=AverageMeter(500),
+            neck_time=AverageMeter(500),
+            det_head_time=AverageMeter(500),
+            det_post_time=AverageMeter(500),
+            rec_time=AverageMeter(500),
+            total_time=AverageMeter(500))
 
     print('Start testing %d images' % len(test_loader))
     for idx, data in enumerate(test_loader):

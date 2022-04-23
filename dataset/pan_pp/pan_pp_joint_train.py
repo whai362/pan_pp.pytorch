@@ -595,8 +595,8 @@ class PAN_PP_Joint_Train(data.Dataset):
             imgs = random_rotate(imgs)
             gt_instance_before_crop = imgs[1].copy()
             imgs = random_crop_padding(imgs, self.img_size)
-            img, gt_instance, training_mask, gt_kernels = imgs[0], imgs[
-                1], imgs[2], imgs[3:]
+            img, gt_instance, training_mask, gt_kernels = \
+                imgs[0], imgs[1], imgs[2], imgs[3:]
             word_mask = update_word_mask(gt_instance, gt_instance_before_crop,
                                          word_mask)
 

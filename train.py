@@ -18,24 +18,25 @@ torch.manual_seed(123456)
 torch.cuda.manual_seed(123456)
 np.random.seed(123456)
 random.seed(123456)
+EPS = 1e-6
 
 
 def train(train_loader, model, optimizer, epoch, start_iter, cfg):
     model.train()
 
     # meters
-    batch_time = AverageMeter()
-    data_time = AverageMeter()
+    batch_time = AverageMeter(max_len=500)
+    data_time = AverageMeter(max_len=500)
 
-    losses = AverageMeter()
-    losses_text = AverageMeter()
-    losses_kernels = AverageMeter()
-    losses_emb = AverageMeter()
-    losses_rec = AverageMeter()
+    losses = AverageMeter(max_len=500)
+    losses_text = AverageMeter(max_len=500)
+    losses_kernels = AverageMeter(max_len=500)
+    losses_emb = AverageMeter(max_len=500)
+    losses_rec = AverageMeter(max_len=500)
 
-    ious_text = AverageMeter()
-    ious_kernel = AverageMeter()
-    accs_rec = AverageMeter()
+    ious_text = AverageMeter(max_len=500)
+    ious_kernel = AverageMeter(max_len=500)
+    accs_rec = AverageMeter(max_len=500)
 
     with_rec = hasattr(cfg.model, 'recognition_head')
 
@@ -61,36 +62,36 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
 
         # detection loss
         loss_text = torch.mean(outputs['loss_text'])
-        losses_text.update(loss_text.item())
+        losses_text.update(loss_text.item(), data['imgs'].size(0))
 
         loss_kernels = torch.mean(outputs['loss_kernels'])
-        losses_kernels.update(loss_kernels.item())
+        losses_kernels.update(loss_kernels.item(), data['imgs'].size(0))
         if 'loss_emb' in outputs.keys():
             loss_emb = torch.mean(outputs['loss_emb'])
-            losses_emb.update(loss_emb.item())
+            losses_emb.update(loss_emb.item(), data['imgs'].size(0))
             loss = loss_text + loss_kernels + loss_emb
         else:
             loss = loss_text + loss_kernels
 
         iou_text = torch.mean(outputs['iou_text'])
-        ious_text.update(iou_text.item())
+        ious_text.update(iou_text.item(), data['imgs'].size(0))
         iou_kernel = torch.mean(outputs['iou_kernel'])
-        ious_kernel.update(iou_kernel.item())
+        ious_kernel.update(iou_kernel.item(), data['imgs'].size(0))
 
         # recognition loss
         if with_rec:
             loss_rec = outputs['loss_rec']
-            valid = loss_rec > 0.5
+            valid = loss_rec > -EPS
             if torch.sum(valid) > 0:
                 loss_rec = torch.mean(loss_rec[valid])
-                losses_rec.update(loss_rec.item())
+                losses_rec.update(loss_rec.item(), data['imgs'].size(0))
                 loss = loss + loss_rec
 
                 acc_rec = outputs['acc_rec']
                 acc_rec = torch.mean(acc_rec[valid])
                 accs_rec.update(acc_rec.item(), torch.sum(valid).item())
 
-        losses.update(loss.item())
+        losses.update(loss.item(), data['imgs'].size(0))
 
         # backward
         optimizer.zero_grad()
@@ -127,7 +128,7 @@ def adjust_learning_rate(optimizer, dataloader, epoch, iter, cfg):
         assert schedule == 'polylr', 'Error: schedule should be polylr!'
         cur_iter = epoch * len(dataloader) + iter
         max_iter_num = cfg.train_cfg.epoch * len(dataloader)
-        lr = cfg.train_cfg.lr * (1 - float(cur_iter) / max_iter_num) ** 0.9
+        lr = cfg.train_cfg.lr * (1.0 - float(cur_iter) / max_iter_num) ** 0.9
     elif isinstance(schedule, tuple):
         lr = cfg.train_cfg.lr
         for i in range(len(schedule)):
@@ -154,6 +155,7 @@ def save_checkpoint(state, checkpoint_path, cfg):
 
 def main(args):
     cfg = Config.fromfile(args.config)
+    cfg.update(dict(debug=args.debug))
     print(json.dumps(cfg._cfg_dict, indent=4))
 
     if args.checkpoint is not None:
@@ -163,16 +165,16 @@ def main(args):
         checkpoint_path = osp.join('checkpoints', cfg_name)
     if not osp.isdir(checkpoint_path):
         os.makedirs(checkpoint_path)
-    print('Checkpoint path: %s.' % checkpoint_path)
 
     # data loader
     data_loader = build_data_loader(cfg.data.train)
-    train_loader = torch.utils.data.DataLoader(data_loader,
-                                               batch_size=cfg.data.batch_size,
-                                               shuffle=True,
-                                               num_workers=8,
-                                               drop_last=True,
-                                               pin_memory=True)
+    train_loader = torch.utils.data.DataLoader(
+        data_loader,
+        batch_size=cfg.data.batch_size,
+        shuffle=not cfg.debug,
+        num_workers=8,
+        drop_last=True,
+        pin_memory=True)
 
     # model
     if hasattr(cfg.model, 'recognition_head'):
@@ -232,6 +234,7 @@ if __name__ == '__main__':
     parser.add_argument('config', help='config file path')
     parser.add_argument('--checkpoint', nargs='?', type=str, default=None)
     parser.add_argument('--resume', nargs='?', type=str, default=None)
+    parser.add_argument('--debug', action='store_true')
     args = parser.parse_args()
 
     main(args)

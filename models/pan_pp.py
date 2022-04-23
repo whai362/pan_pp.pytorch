@@ -29,6 +29,9 @@ class PAN_PP(nn.Module):
         if recognition_head:
             self.rec_head = build_head(recognition_head)
 
+        from IPython import embed;
+        embed
+
     def _upsample(self, x, size, scale=1):
         _, _, H, W = size
         return F.interpolate(x, size=(H // scale, W // scale), mode='bilinear')
@@ -44,6 +47,10 @@ class PAN_PP(nn.Module):
                 word_masks=None,
                 img_metas=None,
                 cfg=None):
+
+        if cfg.debug:
+            from IPython import embed
+            embed()
         outputs = dict()
 
         if not self.training and cfg.report_speed:
@@ -107,8 +114,7 @@ class PAN_PP(nn.Module):
 
                 if x_crops is not None:
                     out_rec = self.rec_head(x_crops, gt_words)
-                    loss_rec = self.rec_head.loss(
-                        out_rec, gt_words, reduce=False)
+                    loss_rec = self.rec_head.loss(out_rec, gt_words)
                 else:
                     loss_rec = {
                         'loss_rec': f.new_full((1,), -1, dtype=torch.float32),

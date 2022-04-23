@@ -27,5 +27,4 @@ class Visualizer:
                 cv2.putText(img, word, (pos[0], pos[1]),
                             cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 0, 0), 1)
 
-        # from IPython import embed; embed(); exit()
         cv2.imwrite(osp.join(self.vis_path, '%s.jpg' % img_name), img)

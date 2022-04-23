@@ -142,14 +142,10 @@ class PA_Head(nn.Module):
 
         # text loss
         selected_masks = ohem_batch(texts, gt_texts, training_masks)
-        loss_text = self.text_loss(texts,
-                                   gt_texts,
-                                   selected_masks,
-                                   reduce=False)
-        iou_text = iou((texts > 0).long(),
-                       gt_texts,
-                       training_masks,
-                       reduce=False)
+        loss_text = self.text_loss(
+            texts, gt_texts, selected_masks, reduce=False)
+        iou_text = iou(
+            (texts > 0).long(), gt_texts, training_masks, reduce=False)
         losses = dict(loss_text=loss_text, iou_text=iou_text)
 
         # kernel loss
@@ -158,25 +154,19 @@ class PA_Head(nn.Module):
         for i in range(kernels.size(1)):
             kernel_i = kernels[:, i, :, :]
             gt_kernel_i = gt_kernels[:, i, :, :]
-            loss_kernel_i = self.kernel_loss(kernel_i,
-                                             gt_kernel_i,
-                                             selected_masks,
-                                             reduce=False)
+            loss_kernel_i = self.kernel_loss(
+                kernel_i, gt_kernel_i, selected_masks, reduce=False)
             loss_kernels.append(loss_kernel_i)
         loss_kernels = torch.mean(torch.stack(loss_kernels, dim=1), dim=1)
-        iou_kernel = iou((kernels[:, -1, :, :] > 0).long(),
-                         gt_kernels[:, -1, :, :],
-                         training_masks * gt_texts,
-                         reduce=False)
+        iou_kernel = iou(
+            (kernels[:, -1, :, :] > 0).long(), gt_kernels[:, -1, :, :],
+            training_masks * gt_texts, reduce=False)
         losses.update(dict(loss_kernels=loss_kernels, iou_kernel=iou_kernel))
 
         # embedding loss
-        loss_emb = self.emb_loss(embs,
-                                 gt_instances,
-                                 gt_kernels[:, -1, :, :],
-                                 training_masks,
-                                 gt_bboxes,
-                                 reduce=False)
+        loss_emb = self.emb_loss(
+            embs, gt_instances, gt_kernels[:, -1, :, :], training_masks,
+            gt_bboxes, reduce=False)
         losses.update(dict(loss_emb=loss_emb))
 
         return losses

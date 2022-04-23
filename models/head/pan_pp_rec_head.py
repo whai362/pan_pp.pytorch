@@ -67,9 +67,9 @@ class PAN_PP_RecHead(nn.Module):
         pad_scale = 1
         pad = x.new_tensor([-1, -1, 1, 1], dtype=torch.long) * pad_scale
         if self.training:
-            offset = x.new_tensor(np.random.randint(-pad_scale, pad_scale + 1,
-                                                    bboxes.size()),
-                                  dtype=torch.long)
+            offset = x.new_tensor(
+                np.random.randint(-pad_scale, pad_scale + 1, bboxes.size()),
+                dtype=torch.long)
             pad = pad + offset
 
         bboxes = bboxes + pad
@@ -125,7 +125,7 @@ class PAN_PP_RecHead(nn.Module):
             words = None
         return x_crops, words
 
-    def loss(self, input, target, reduce=True):
+    def loss(self, input, target):
         EPS = 1e-6
         N, L, D = input.size()
         mask = target != self.char2id['PAD']
@@ -133,15 +133,12 @@ class PAN_PP_RecHead(nn.Module):
         target = target.contiguous().view(-1)
         loss_rec = F.cross_entropy(input, target, reduce=False)
         loss_rec = loss_rec.view(N, L)
-        loss_rec = torch.sum(loss_rec * mask.float(),
-                             dim=1) / (torch.sum(mask.float(), dim=1) + EPS)
+        loss_rec = torch.sum(loss_rec * mask.float(), dim=1) / \
+                   (torch.sum(mask.float(), dim=1) + EPS)
         acc_rec = acc(torch.argmax(input, dim=1).view(N, L),
                       target.view(N, L),
                       mask,
                       reduce=False)
-        if reduce:
-            loss_rec = torch.mean(loss_rec)  # [valid]
-            acc_rec = torch.mean(acc_rec)
         losses = {'loss_rec': loss_rec, 'acc_rec': acc_rec}
 
         return losses
@@ -172,7 +169,7 @@ class Encoder(nn.Module):
     def forward(self, x):
         batch_size, feature_dim, H, W = x.size()
         x_flatten = x.view(batch_size, feature_dim, H * W).permute(0, 2, 1)
-        st = x.new_full((batch_size, ), self.START_TOKEN, dtype=torch.long)
+        st = x.new_full((batch_size,), self.START_TOKEN, dtype=torch.long)
         emb_st = self.emb(st)
         holistic_feature, _ = self.att(emb_st, x_flatten, x_flatten)
         return holistic_feature
@@ -218,7 +215,7 @@ class Decoder(nn.Module):
             if t == 0:
                 xt = holistic_feature
             elif t == 1:
-                it = x.new_full((batch_size, ),
+                it = x.new_full((batch_size,),
                                 self.START_TOKEN,
                                 dtype=torch.long)
                 xt = self.emb(it)
@@ -278,7 +275,7 @@ class Decoder(nn.Module):
                          dtype=torch.long)
         seq_score = x.new_zeros((batch_size, max_seq_len + 1),
                                 dtype=torch.float32)
-        end = x.new_ones((batch_size, ), dtype=torch.uint8)
+        end = x.new_ones((batch_size,), dtype=torch.uint8)
         for t in range(max_seq_len + 1):
             if t == 0:
                 xt = holistic_feature
@@ -338,7 +335,7 @@ class Decoder(nn.Module):
         x0 = holistic_feature
         h = x.new_zeros(self.num_layers, 2, batch_size, self.hidden_dim)
         words, scores, h = decode_step(x0, h, 1)
-        init_inputs = x.new_full((batch_size, ),
+        init_inputs = x.new_full((batch_size,),
                                  self.START_TOKEN,
                                  dtype=torch.long)
         seqs, seq_scores = bs.beam_search(init_inputs, h)
