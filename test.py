@@ -110,6 +110,7 @@ def main(args):
     for d in [cfg, cfg.data.test]:
         d.update(dict(report_speed=args.report_speed))
     cfg.update(dict(vis=args.vis))
+    cfg.update(dict(debug=args.debug))
     print(json.dumps(cfg._cfg_dict, indent=4))
 
     # data loader
@@ -160,6 +161,7 @@ if __name__ == '__main__':
     parser.add_argument('checkpoint', nargs='?', type=str, default=None)
     parser.add_argument('--report_speed', action='store_true')
     parser.add_argument('--vis', action='store_true')
+    parser.add_argument('--debug', action='store_true')
     args = parser.parse_args()
 
     main(args)
