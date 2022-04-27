@@ -91,6 +91,10 @@ def train(train_loader, model, optimizer, epoch, start_iter, cfg):
                 acc_rec = torch.mean(acc_rec[valid])
                 accs_rec.update(acc_rec.item(), torch.sum(valid).item())
 
+        # if cfg.debug:
+        #     from IPython import embed
+        #     embed()
+
         losses.update(loss.item(), data['imgs'].size(0))
 
         # backward
@@ -156,6 +160,7 @@ def save_checkpoint(state, checkpoint_path, cfg):
 def main(args):
     cfg = Config.fromfile(args.config)
     cfg.update(dict(debug=args.debug))
+    cfg.data.train.update(dict(debug=args.debug))
     print(json.dumps(cfg._cfg_dict, indent=4))
 
     if args.checkpoint is not None:
@@ -185,6 +190,12 @@ def main(args):
                 id2char=data_loader.id2char,
             ))
     model = build_model(cfg.model)
+
+    if cfg.debug:
+        # from IPython import embed; embed()
+        checkpoint = torch.load('checkpoints/tmp.pth.tar')
+        model.load_state_dict(checkpoint['state_dict'])
+
     model = torch.nn.DataParallel(model).cuda()
 
     # Check if model has custom optimizer / loss

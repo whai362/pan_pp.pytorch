@@ -37,7 +37,7 @@ model = dict(
     )
 )
 data = dict(
-    batch_size=16,
+    batch_size=2,
     train=dict(
         type='PAN_PP_Joint_Train',
         split='train',
@@ -51,7 +51,7 @@ data = dict(
     test=dict(
         type='PAN_PP_IC15',
         split='test',
-        short_size=720,
+        short_size=736,
         read_type='pil',
         with_rec=True
     )

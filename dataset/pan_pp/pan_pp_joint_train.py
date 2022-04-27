@@ -271,7 +271,7 @@ def random_crop_padding(imgs, target_size):
                                        0,
                                        p_w - t_w,
                                        borderType=cv2.BORDER_CONSTANT,
-                                       value=(0, ))
+                                       value=(0,))
         n_imgs.append(img_p)
     return n_imgs
 
@@ -368,17 +368,20 @@ class PAN_PP_Joint_Train(data.Dataset):
                  kernel_scale=0.5,
                  with_rec=False,
                  read_type='pil',
-                 report_speed=False):
+                 report_speed=False,
+                 debug=False):
         self.split = split
-        self.is_transform = is_transform
+        self.is_transform = is_transform and not debug
 
         self.img_size = img_size if (
-            img_size is None or isinstance(img_size, tuple)) else (img_size,
-                                                                   img_size)
+                img_size is None or isinstance(img_size, tuple)) else (img_size,
+                                                                       img_size)
         self.kernel_scale = kernel_scale
         self.short_size = short_size
         self.for_rec = with_rec
         self.read_type = read_type
+        self.report_speed = report_speed
+        self.debug = debug
 
         self.img_paths = {}
         self.gts = {}
@@ -509,7 +512,11 @@ class PAN_PP_Joint_Train(data.Dataset):
 
     def __getitem__(self, index):
         choice = random.random()
-        if choice < 1.0 / 5.0:
+
+        if self.debug:
+            # index = 0
+            img, bboxes, words = self.load_ic15_single(index)
+        elif choice < 1.0 / 5.0:
             index = random.randint(0, len(self.img_paths['synth']) - 1)
             img, bboxes, words = self.load_synth_single(index)
         elif choice < 2.0 / 5.0:
@@ -532,14 +539,14 @@ class PAN_PP_Joint_Train(data.Dataset):
         gt_words = np.full((self.max_word_num + 1, self.max_word_len),
                            self.char2id['PAD'],
                            dtype=np.int32)
-        word_mask = np.zeros((self.max_word_num + 1, ), dtype=np.int32)
+        word_mask = np.zeros((self.max_word_num + 1,), dtype=np.int32)
         for i, word in enumerate(words):
             if word == '###':
                 continue
             if word == '???':
                 continue
             word = word.lower()
-            gt_word = np.full((self.max_word_len, ),
+            gt_word = np.full((self.max_word_len,),
                               self.char2id['PAD'],
                               dtype=np.int)
             for j, char in enumerate(word):

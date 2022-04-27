@@ -111,6 +111,7 @@ def main(args):
         d.update(dict(report_speed=args.report_speed))
     cfg.update(dict(vis=args.vis))
     cfg.update(dict(debug=args.debug))
+    cfg.data.test.update(dict(debug=args.debug))
     print(json.dumps(cfg._cfg_dict, indent=4))
 
     # data loader

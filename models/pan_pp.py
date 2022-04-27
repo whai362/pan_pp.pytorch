@@ -29,9 +29,6 @@ class PAN_PP(nn.Module):
         if recognition_head:
             self.rec_head = build_head(recognition_head)
 
-        from IPython import embed;
-        embed
-
     def _upsample(self, x, size, scale=1):
         _, _, H, W = size
         return F.interpolate(x, size=(H // scale, W // scale), mode='bilinear')
@@ -47,10 +44,10 @@ class PAN_PP(nn.Module):
                 word_masks=None,
                 img_metas=None,
                 cfg=None):
-
         if cfg.debug:
             from IPython import embed
             embed()
+
         outputs = dict()
 
         if not self.training and cfg.report_speed:
@@ -87,7 +84,7 @@ class PAN_PP(nn.Module):
             start = time.time()
 
         # detection
-        det_out = self.det_head(f)
+        out_det = self.det_head(f)
 
         if not self.training and cfg.report_speed:
             torch.cuda.synchronize()
@@ -95,15 +92,15 @@ class PAN_PP(nn.Module):
             start = time.time()
 
         if self.training:
-            det_out = self._upsample(det_out, imgs.size())
+            out_det = self._upsample(out_det, imgs.size())
             loss_det = self.det_head.loss(
-                det_out, gt_texts, gt_kernels, training_masks,
+                out_det, gt_texts, gt_kernels, training_masks,
                 gt_instances, gt_bboxes)
             outputs.update(loss_det)
         else:
-            det_out = self._upsample(det_out, imgs.size(), cfg.test_cfg.scale)
-            det_res = self.det_head.get_results(det_out, img_metas, cfg)
-            outputs.update(det_res)
+            out_det = self._upsample(out_det, imgs.size(), cfg.test_cfg.scale)
+            res_det = self.det_head.get_results(out_det, img_metas, cfg)
+            outputs.update(res_det)
 
         if self.rec_head is not None:
             if self.training:
@@ -114,7 +111,8 @@ class PAN_PP(nn.Module):
 
                 if x_crops is not None:
                     out_rec = self.rec_head(x_crops, gt_words)
-                    loss_rec = self.rec_head.loss(out_rec, gt_words)
+                    loss_rec = self.rec_head.loss(out_rec, gt_words,
+                                                  reduce=False)
                 else:
                     loss_rec = {
                         'loss_rec': f.new_full((1,), -1, dtype=torch.float32),
@@ -122,14 +120,14 @@ class PAN_PP(nn.Module):
                     }
                 outputs.update(loss_rec)
             else:
-                if len(det_res['bboxes']) > 0:
+                if len(res_det['bboxes']) > 0:
                     x_crops, _ = self.rec_head.extract_feature(
                         f, (imgs.size(2), imgs.size(3)),
-                        f.new_tensor(det_res['label'],
+                        f.new_tensor(res_det['label'],
                                      dtype=torch.long).unsqueeze(0),
-                        bboxes=f.new_tensor(det_res['bboxes_h'],
+                        bboxes=f.new_tensor(res_det['bboxes_h'],
                                             dtype=torch.long),
-                        unique_labels=det_res['instances'])
+                        unique_labels=res_det['instances'])
                     words, word_scores = self.rec_head.forward(x_crops)
                 else:
                     words = []

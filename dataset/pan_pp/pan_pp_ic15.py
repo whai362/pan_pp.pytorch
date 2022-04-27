@@ -258,7 +258,8 @@ class PAN_PP_IC15(data.Dataset):
                  kernel_scale=0.5,
                  with_rec=False,
                  read_type='pil',
-                 report_speed=False):
+                 report_speed=False,
+                 debug=False):
         self.split = split
         self.is_transform = is_transform
 
@@ -269,6 +270,7 @@ class PAN_PP_IC15(data.Dataset):
         self.short_size = short_size
         self.with_rec = with_rec
         self.read_type = read_type
+        self.debug = debug
 
         if split == 'train':
             data_dirs = [ic15_train_data_dir]
@@ -437,6 +439,10 @@ class PAN_PP_IC15(data.Dataset):
 
     def prepare_test_data(self, index):
         img_path = self.img_paths[index]
+
+        if self.debug:
+            img_path = './data/ICDAR2015/Challenge4/ch4_test_images/img_499.jpg'
+
         img_meta = dict(
             img_path=img_path,
             img_name=img_path.split('/')[-1].split('.')[0])
@@ -452,6 +458,10 @@ class PAN_PP_IC15(data.Dataset):
         img = transforms.ToTensor()(img)
         img = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                    std=[0.229, 0.224, 0.225])(img)
+
+        if self.debug:
+            print(img.sum())
+            exit()
 
         data = dict(imgs=img, img_metas=img_meta)
 

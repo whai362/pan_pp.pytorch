@@ -79,8 +79,7 @@ class PAN_PP_RecHead(nn.Module):
         for i in range(x.size(0)):
             instance_ = instance[i:i + 1]
             if unique_labels is None:
-                unique_labels_, _ = torch.unique(instance_,
-                                                 sorted=True,
+                unique_labels_, _ = torch.unique(instance_, sorted=True,
                                                  return_inverse=True)
             else:
                 unique_labels_ = unique_labels[i]
@@ -99,10 +98,8 @@ class PAN_PP_RecHead(nn.Module):
                 t, l, b, r = bboxes_[label]
 
                 mask = (instance_[:, t:b, l:r] == label).float()
-                mask = F.max_pool2d(mask.unsqueeze(0),
-                                    kernel_size=(3, 3),
-                                    stride=1,
-                                    padding=1)[0]
+                mask = F.max_pool2d(mask.unsqueeze(0), kernel_size=(3, 3),
+                                    stride=1, padding=1)[0]
 
                 if torch.sum(mask) == 0:
                     continue
@@ -110,8 +107,7 @@ class PAN_PP_RecHead(nn.Module):
                 _, h, w = x_crop.size()
                 if h > w * 1.5:
                     x_crop = x_crop.transpose(1, 2)
-                x_crop = F.interpolate(x_crop.unsqueeze(0),
-                                       self.feature_size,
+                x_crop = F.interpolate(x_crop.unsqueeze(0), self.feature_size,
                                        mode='bilinear')
                 x_crops.append(x_crop)
                 if gt_words is not None:
@@ -125,7 +121,7 @@ class PAN_PP_RecHead(nn.Module):
             words = None
         return x_crops, words
 
-    def loss(self, input, target):
+    def loss(self, input, target, reduce=True):
         EPS = 1e-6
         N, L, D = input.size()
         mask = target != self.char2id['PAD']
@@ -133,12 +129,13 @@ class PAN_PP_RecHead(nn.Module):
         target = target.contiguous().view(-1)
         loss_rec = F.cross_entropy(input, target, reduce=False)
         loss_rec = loss_rec.view(N, L)
-        loss_rec = torch.sum(loss_rec * mask.float(), dim=1) / \
-                   (torch.sum(mask.float(), dim=1) + EPS)
-        acc_rec = acc(torch.argmax(input, dim=1).view(N, L),
-                      target.view(N, L),
-                      mask,
-                      reduce=False)
+        loss_rec = torch.sum(loss_rec * mask.float(), dim=1) / (
+                torch.sum(mask.float(), dim=1) + EPS)
+        acc_rec = acc(torch.argmax(input, dim=1).view(N, L), target.view(N, L),
+                      mask, reduce=False)
+        if reduce:
+            loss_rec = torch.mean(loss_rec[valid])
+            acc_rec = torch.mean(acc_rec)
         losses = {'loss_rec': loss_rec, 'acc_rec': acc_rec}
 
         return losses
