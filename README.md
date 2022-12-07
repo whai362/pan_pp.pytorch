@@ -1,18 +1,19 @@
 ## News
+- (2022/12/08) We will release the code and models of FAST in [link](https://github.com/czczup/FAST).
 - (2022/10/09) We release stabler code for PAN++, see [pan_pp_stable](https://github.com/whai362/pan_pp_stable).
 - (2022/04/22) Update PAN++ ICDAR 2015 joint training & post-processing with vocabulary & visualization code.
 - (2021/11/03) Paddle implementation of PAN, see [Paddle-PANet](https://github.com/simplify23/Paddle-PANet). Thanks @simplify23.
 - (2021/04/08) PSENet and PAN are included in [MMOCR](https://github.com/open-mmlab/mmocr).
 
 ## Introduction
-This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html), [PAN++](https://arxiv.org/abs/2105.00405), and [FAST](https://arxiv.org/abs/2111.02394) [coming soon].
+This repository contains the official implementations of [PSENet](https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Shape_Robust_Text_Detection_With_Progressive_Scale_Expansion_Network_CVPR_2019_paper.html), [PAN](https://openaccess.thecvf.com/content_ICCV_2019/html/Wang_Efficient_and_Accurate_Arbitrary-Shaped_Text_Detection_With_Pixel_Aggregation_Network_ICCV_2019_paper.html), [PAN++](https://arxiv.org/abs/2105.00405).
 
 <details open>
 <summary>Text Detection</summary>
 
 - [x] [PSENet (CVPR'2019)](config/psenet/)
 - [x] [PAN (ICCV'2019)](config/pan/)
-- [x] [FAST (Arxiv'2021)](config/fast/) [coming soon]
+- [x] [FAST (Arxiv'2021)](config/fast/)
 </details>
 
 <details open>
